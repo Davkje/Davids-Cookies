@@ -7,7 +7,7 @@ const productsContainer = document.querySelector('#productsContainer');
 const product = [
     {
         id: 0,
-        name: 'Product 1',
+        name: 'Chocolate Chip',
         price: 10,
         rating: 4,
         amount: 0,
@@ -21,7 +21,7 @@ const product = [
     },
     {
         id: 1,
-        name: 'Product 2',
+        name: 'Mint Chip',
         price: 15,
         rating: 2,
         amount: 0,
@@ -48,6 +48,7 @@ function printProducts() {
                 <h3>${product.name}</h3>
                 <img src="${product.img.url}" alt="${product.img.alt}">
                 <div>Price: <span>${product.price}<span> kr</div>
+                <div>Kategori: <span>${product.category}<span></div>
                 <div>Rating: <span>${product.rating}</span></div>
                 <div>
                     <button class="decrease" id="decrease-${product.id}"> - </button>
