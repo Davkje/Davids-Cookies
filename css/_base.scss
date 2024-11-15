@@ -1,9 +1,20 @@
 // ------- ALL -------- 
 
 body {
+    background-color: white;
+    font-family: "Open-Sans", sans-serif;
+}
+
+img {
+    max-width: 250px;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+header {
     background-color: $primary-blue;
-    font-family: "Roboto", sans-serif;
-    color: white;
+    height: 5rem;
 }
 
 main {
@@ -11,5 +22,11 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    header {
+        background-color: $primary-blue;
+        height: 5rem;
+        width: 100%;
+    }
 }
+
 
