@@ -14,6 +14,8 @@ const isMonday = today.getDay() === 1; // Måndag
 
 const currentHour = today.getHours();
 
+let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
+
 // ---------------- PRODUCT ARREY & OBJECTS
 // ----------------
 
@@ -50,6 +52,10 @@ const product = [
 
 // ---------------- FUNCTIONS
 // ----------------
+
+function slowCustomerMessage() {
+    alert('You were too slow! Your order has been canceled.');
+}
 
 function getPriceMultiplier() {
     if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) {
@@ -175,13 +181,15 @@ function printCartContainer() {
         msg += '<p>Måndagsrabatt: 10 % på hela beställningen</p>'
     }
 
+    // HTML CART
     cartContainer.innerHTML += `<p>Total sum: ${sum} kr</p>`;
     cartContainer.innerHTML +=  `<div>${msg}</div>`;
 
+    // SHIPPING - över 15 är gratis, annars 25kr + 10%
     if (orderedProductAmount > 15) {
-        cartContainer.innerHTML += '<p>Shipping: 0 kr</p>';
+        cartContainer.innerHTML += '<p>Shipping: 0 kr - Free Shipping</p>';
     } else {
-        cartContainer.innerHTML += `<p>Shipping: ${25 + (0.1 * sum)}kr</p>`;
+        cartContainer.innerHTML += `<p>Shipping: ${Math.round(25 + (0.1 * sum))}kr</p>`;
     }
 }
 
