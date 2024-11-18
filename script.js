@@ -176,7 +176,7 @@ function printCartContainer() {
         return;
     }
     // Rabatt på Måndagar
-    if (today.getDay() === 1) { // Söndag är siffra 0, måndag blir därför siffra 1!
+    if (today.getDay() === 1 && today.getHours() < 10) { // Söndag är siffra 0, måndag blir därför siffra 1!
         sum *= 0.9; // ge 10 % rabatt
         msg += '<p>Måndagsrabatt: 10 % på hela beställningen</p>'
     }
