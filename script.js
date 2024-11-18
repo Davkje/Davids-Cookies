@@ -1,12 +1,23 @@
-//---------------- HTML ELEMENTS ------------
+
+// ---------------- HTML ELEMENTS
+// ----------------
 
 const productsContainer = document.querySelector('#productsContainer');
-
 const cartContainer = document.querySelector('#cartContainer');
 
-//---------------- PRODUCT ARREY AND OBJECTS ------------
+// ---------------- VARIABLES
+// ----------------
 
-const product = [
+const today = new Date();
+const isFriday = today.getDay() === 6; // true eller false, är det Fredag
+const isMonday = today.getDay() === 1; // Måndag
+
+const currentHour = today.getHours();
+
+// ---------------- PRODUCT ARREY & OBJECTS
+// ----------------
+
+const product = [ 
     {
         id: 0,
         name: 'Chocolate Chip',
@@ -37,11 +48,23 @@ const product = [
     },
 ];
 
-//---------------- PRINT PRODUCT IN HTML ------------
+// ---------------- FUNCTIONS
+// ----------------
+
+function getPriceMultiplier() {
+    if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) {
+        return 1.15;
+    }
+    return 1;
+}
+
+//---------------- PRINT PRODUCT IN HTML. Func
 
 function printProducts() {
     // RENSA
     productsContainer.innerHTML = '';
+
+    let priceIncrease = getPriceMultiplier();
 
     // PRINT HTML - För varje product - printa en articel med innehåll i den tomma div'en 
     product.forEach(product => {
@@ -49,7 +72,7 @@ function printProducts() {
             <article class="product">
                 <h3>${product.name}</h3>
                 <img src="${product.img.url}" alt="${product.img.alt}">
-                <div>Price: <span>${product.price}<span> kr</div>
+                <div>Price: <span>${product.price * priceIncrease}<span> kr</div>
                 <div>Kategori: <span>${product.category}<span></div>
                 <div>Rating: <span>${product.rating}</span></div>
                 <div>
@@ -109,26 +132,59 @@ function decreaseProductCount(e) {
     printProducts();
 }
 
+
 // PRINT CART HTML & UPDATE
 
 function printCartContainer() {
-    cartContainer.innerHTML = '';
+    cartContainer.innerHTML = ''; // Rensa
 
-    let sum = 0;
+    // Lokala Variabler
+    let sum = 0; // summan är 0 o inga produkter valts
+    let orderedProductAmount = 0; // Antal products i korgen!
+    let msg = ''; // Vi har inget message från början
+    let priceIncrease = getPriceMultiplier();
 
+    // Cart
     product.forEach(product => {
+        orderedProductAmount += product.amount;
+
         if (product.amount >0 ) {
-            sum += product.amount * product.price;
+            let productPrice = product.price;
+            if(product.amount >= 10) {
+                productPrice *= 0.9;
+                msg += '<p>Mängdrabbatt: 10 %, 10 av samma!</p>'
+            }
+            const adjustedProductPrice = productPrice * priceIncrease;
+
+            sum += product.amount * adjustedProductPrice;
             cartContainer.innerHTML += `
                 <article>
-                    <span>${product.name}</span> | <span>${product.amount}</span> | <span>${product.amount * product.price} kr</span>
+                    <span>${product.name}</span> | <span>${product.amount}</span> | <span>${product.amount * adjustedProductPrice} kr</span>
                 </article>
             `;
         }
     });
 
+    // Om summan är 0 visas ingen summa
+    if (sum <= 0) {
+        return;
+    }
+    // Rabatt på Måndagar
+    if (today.getDay() === 1) { // Söndag är siffra 0, måndag blir därför siffra 1!
+        sum *= 0.9; // ge 10 % rabatt
+        msg += '<p>Måndagsrabatt: 10 % på hela beställningen</p>'
+    }
+
     cartContainer.innerHTML += `<p>Total sum: ${sum} kr</p>`;
+    cartContainer.innerHTML +=  `<div>${msg}</div>`;
+
+    if (orderedProductAmount > 15) {
+        cartContainer.innerHTML += '<p>Shipping: 0 kr</p>';
+    } else {
+        cartContainer.innerHTML += `<p>Shipping: ${25 + (0.1 * sum)}kr</p>`;
+    }
 }
 
-
 printProducts();
+
+// På måndagar innan kl. 10 ges 10 % rabatt på hela beställningssumman. Detta visas i varukorgssammanställningen som en rad med texten "Måndagsrabatt: 10 % på hela beställningen".
