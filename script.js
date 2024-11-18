@@ -2,7 +2,9 @@
 
 const productsContainer = document.querySelector('#productsContainer');
 
-//---------------- HTML ELEMENTS ------------
+const cartContainer = document.querySelector('#cartContainer');
+
+//---------------- PRODUCT ARREY AND OBJECTS ------------
 
 const product = [
     {
@@ -69,11 +71,11 @@ function printProducts() {
     decreaseButtons.forEach(button => {
         button.addEventListener('click', decreaseProductCount);
     });
+
+    printCartContainer(); // Print cart to update price and amount etc
 }
 
-printProducts();
-
-// INCREASE PRODUCT 
+// INCREASE PRODUCT AMOUNT
 
 function increaseProductCount(e) {
     const productId = Number(e.target.id.replace('increase-', ''));
@@ -88,7 +90,7 @@ function increaseProductCount(e) {
     printProducts();
 }
 
-// DECREASE PRODUCT 
+// DECREASE PRODUCT AMOUNT
 
 function decreaseProductCount(e) {
     const productId = Number(e.target.id.replace('decrease-', ''));
@@ -99,9 +101,34 @@ function decreaseProductCount(e) {
         console.error('Det finns ingen sådan produkt i produktlistan! Kolla att id:t är rätt.');
         return;
     }
-    if (product[foundProductIndex].amount == 0) { // Om siffran är 0, gör inget!
-        return;
+    if (product[foundProductIndex].amount <= 0) { //  Om siffran är 0, gör inget!
+        product[foundProductIndex].amount = 0;
+    } else {
+        product[foundProductIndex].amount -= 1; // minska dess amount med -1
     }
-    product[foundProductIndex].amount -= 1; // minska dess amount med -1
     printProducts();
 }
+
+// PRINT CART HTML & UPDATE
+
+function printCartContainer() {
+    cartContainer.innerHTML = '';
+
+    let sum = 0;
+
+    product.forEach(product => {
+        if (product.amount >0 ) {
+            sum += product.amount * product.price;
+            cartContainer.innerHTML += `
+                <article>
+                    <span>${product.name}</span> | <span>${product.amount}</span> | <span>${product.amount * product.price} kr</span>
+                </article>
+            `;
+        }
+    });
+
+    cartContainer.innerHTML += `<p>Total sum: ${sum} kr</p>`;
+}
+
+
+printProducts();
