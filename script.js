@@ -2,8 +2,14 @@
 // ---------------- HTML ELEMENTS
 // ----------------
 
+// - Containers
 const productsContainer = document.querySelector('#productsContainer');
 const cartContainer = document.querySelector('#cartContainer');
+
+// - Sort Buttons
+const sortByNameBtn = document.querySelector('#sortByNameBtn');
+const sortByPriceBtn = document.querySelector('#sortByPriceBtn');
+const sortByRatingBtn = document.querySelector('#sortByRatingBtn');
 
 // ---------------- VARIABLES
 // ----------------
@@ -16,8 +22,7 @@ const currentHour = today.getHours();
 
 let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
 
-// ---------------- PRODUCT ARREY & OBJECTS
-// ----------------
+// --- PRODUCT ARREY & OBJECTS
 
 const product = [ 
     {
@@ -37,8 +42,22 @@ const product = [
     {
         id: 1,
         name: 'Mint Chip',
-        price: 15,
+        price: 25,
         rating: 2,
+        amount: 0,
+        category: 'Salty',
+        img: {
+            url: 'assets/images/cookie.jpg',
+            width: 552,
+            height: 552,
+            alt: 'Chocolate chip cookie'
+        },
+    },
+    {
+        id: 2,
+        name: 'Hazel Dream',
+        price: 15,
+        rating: 5,
         amount: 0,
         category: 'Salty',
         img: {
@@ -50,22 +69,18 @@ const product = [
     },
 ];
 
+// - Categorys
+const sweetCat = product.filter(product => product.category === 'Sweet')
+const saltyCat = product.filter(product => product.category === 'Salty')
+
+// ---------------- EVENT LISTENERS
+sortByPriceBtn.addEventListener('click', sortByPrice);
+sortByRatingBtn.addEventListener('click', sortByRating);
+
 // ---------------- FUNCTIONS
 // ----------------
 
-function slowCustomerMessage() {
-    alert('You were too slow! Your order has been canceled.');
-}
-
-function getPriceMultiplier() {
-    if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) {
-        return 1.15;
-    }
-    return 1;
-}
-
-//---------------- PRINT PRODUCT IN HTML. Func
-
+// --- PRINT PRODUCTS IN HTML
 function printProducts() {
     // RENSA
     productsContainer.innerHTML = '';
@@ -104,43 +119,7 @@ function printProducts() {
     printCartContainer(); // Print cart to update price and amount etc
 }
 
-// INCREASE PRODUCT AMOUNT
-
-function increaseProductCount(e) {
-    const productId = Number(e.target.id.replace('increase-', ''));
-    // Leta rätt på produkten i arrayen som har det id:t
-    const foundProductIndex = product.findIndex(product => product.id === productId);
-    // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
-    if (foundProductIndex === -1) {
-        console.error('Det finns ingen sådan produkt i produktlistan! Kolla att id:t är rätt.');
-        return;
-    }
-    product[foundProductIndex].amount += 1; // öka dess amount med +1
-    printProducts();
-}
-
-// DECREASE PRODUCT AMOUNT
-
-function decreaseProductCount(e) {
-    const productId = Number(e.target.id.replace('decrease-', ''));
-    // Leta rätt på produkten i arrayen som har det id:t
-    const foundProductIndex = product.findIndex(product => product.id === productId);
-    // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
-    if (foundProductIndex === -1) {
-        console.error('Det finns ingen sådan produkt i produktlistan! Kolla att id:t är rätt.');
-        return;
-    }
-    if (product[foundProductIndex].amount <= 0) { //  Om siffran är 0, gör inget!
-        product[foundProductIndex].amount = 0;
-    } else {
-        product[foundProductIndex].amount -= 1; // minska dess amount med -1
-    }
-    printProducts();
-}
-
-
-// PRINT CART HTML & UPDATE
-
+// --- PRINT CART HTML & UPDATE
 function printCartContainer() {
     cartContainer.innerHTML = ''; // Rensa
 
@@ -193,6 +172,61 @@ function printCartContainer() {
     }
 }
 
+// --- INCREASE PRODUCT AMOUNT
+function increaseProductCount(e) {
+    const productId = Number(e.target.id.replace('increase-', ''));
+    // Leta rätt på produkten i arrayen som har det id:t
+    const foundProductIndex = product.findIndex(product => product.id === productId);
+    // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
+    if (foundProductIndex === -1) {
+        console.error('Det finns ingen sådan produkt i produktlistan! Kolla att id:t är rätt.');
+        return;
+    }
+    product[foundProductIndex].amount += 1; // öka dess amount med +1
+    printProducts();
+}
+
+// --- DECREASE PRODUCT AMOUNT
+function decreaseProductCount(e) {
+    const productId = Number(e.target.id.replace('decrease-', ''));
+    // Leta rätt på produkten i arrayen som har det id:t
+    const foundProductIndex = product.findIndex(product => product.id === productId);
+    // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
+    if (foundProductIndex === -1) {
+        console.error('Det finns ingen sådan produkt i produktlistan! Kolla att id:t är rätt.');
+        return;
+    }
+    if (product[foundProductIndex].amount <= 0) { //  Om siffran är 0, gör inget!
+        product[foundProductIndex].amount = 0;
+    } else {
+        product[foundProductIndex].amount -= 1; // minska dess amount med -1
+    }
+    printProducts();
+}
+
+function sortByPrice() {
+    product.sort((prod1, prod2) => prod1.price - prod2.price);
+    printProducts();
+}
+
+function sortByRating() {
+    product.sort((prod1, prod2) => prod2.rating - prod1.rating);
+    printProducts();
+}
+
+// --- Message - To Slow
+
+function slowCustomerMessage() {
+    alert('You were too slow! Your order has been canceled.');
+}
+
+// --- Price Multiplier (For special prices) 
+function getPriceMultiplier() {
+    if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) {
+        return 1.15;
+    }
+    return 1;
+}
+
 printProducts();
 
-// På måndagar innan kl. 10 ges 10 % rabatt på hela beställningssumman. Detta visas i varukorgssammanställningen som en rad med texten "Måndagsrabatt: 10 % på hela beställningen".
