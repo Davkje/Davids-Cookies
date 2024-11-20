@@ -119,7 +119,7 @@ function printProducts() {
     printCartContainer(); // Print cart to update price and amount etc
 }
 
-// --- PRINT CART HTML & UPDATE
+// --- PRINT & UPDATE CART
 function printCartContainer() {
     cartContainer.innerHTML = ''; // Rensa
 

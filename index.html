@@ -21,8 +21,88 @@
             <div id="productsContainer">
                 <!-- Fyller på från Javascript -->
             </div>
+        </section>
+        <section>
             <h2>Cart</h2>
             <div id="cartContainer"></div>
+        </section>
+        <section>
+            <h2>Check Out</h2>
+            <form>
+                <label>
+                    <span>Name</span>
+                    <input type="text" name="name" required>
+                </label>
+                <label>
+                    <span>Lastname</span>
+                    <input type="text" name="lastname" required>
+                </label>
+                <label>
+                    <span>Adress</span>
+                    <input type="text" name="adress" required>
+                </label>
+                <label>
+                    <span>Zip code</span>
+                    <input type="number" name="zipcode" required>
+                </label>
+                <label>
+                    <span>Town</span>
+                    <input type="text" name="town" required>
+                </label>
+                <label>
+                    <span>Door code - Optional</span>
+                    <input type="number" name="doorcode">
+                </label>
+                <label>
+                    <span>Phone</span>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                </label>
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email" required>
+                </label>
+                <label>
+                    <span>Payment Method</span>
+                    <select name="paymentMethod" id="paymentMethod" required>
+                        <option value="card">Card</option>
+                        <option value="invoice">Invoice</option>
+                    </select>
+                </label>
+                <div id="payByCard">
+                    <label>
+                        <span>Card number</span>
+                        <input type="number" name="cardnumber">
+                    </label>
+                    <label>
+                        <span>Date / Year</span>
+                        <input type="number" name="dateyear">
+                    </label>
+                    <label>
+                        <span>CVC</span>
+                        <input type="number" name="cvc">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <span>Swedish Social Security Nr</span>
+                        <input type="number" name="securitynumber">
+                    </label>
+                </div>
+                <label>
+                    <span>Discount Code</span>
+                    <input type="text" name="discountcode" id="discountcode">
+                </label>
+                <label>
+                    <span>Accept perssonal info</span>
+                    <input type="checkbox" required>
+                </label>
+                <label>
+                    <span>Nyhetsbrev</span>
+                    <input type="checkbox">
+                </label>
+                <input id="resetform" type="reset" value="Reset">
+                <input type="submit" name="submit" value="Make Purchase">
+            </form>
         </section>
     </main>
     <script src="script.js"></script>
