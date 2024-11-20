@@ -28,7 +28,7 @@ const product = [
     {
         id: 0,
         name: 'Chocolate Chip',
-        price: 10,
+        price: 125,
         rating: 4,
         amount: 0,
         category: 'Sweet',
@@ -43,7 +43,7 @@ const product = [
         id: 1,
         name: 'Mint Chip',
         price: 25,
-        rating: 2,
+        rating: 1,
         amount: 0,
         category: 'Salty',
         img: {
@@ -74,6 +74,7 @@ const sweetCat = product.filter(product => product.category === 'Sweet')
 const saltyCat = product.filter(product => product.category === 'Salty')
 
 // ---------------- EVENT LISTENERS
+sortByNameBtn.addEventListener('click', sortByName);
 sortByPriceBtn.addEventListener('click', sortByPrice);
 sortByRatingBtn.addEventListener('click', sortByRating);
 
@@ -214,10 +215,17 @@ function sortByRating() {
     printProducts();
 }
 
+function sortByName() {
+    product.sort((prod1, prod2) => prod1.name.localeCompare(prod2.name));
+    printProducts();
+}
+
 // --- Message - To Slow
 
 function slowCustomerMessage() {
     alert('You were too slow! Your order has been canceled.');
+    product.forEach(prod => prod.amount = 0);
+    printProducts();
 }
 
 // --- Price Multiplier (For special prices) 
