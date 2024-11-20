@@ -15,9 +15,11 @@
         <h1>Webshop</h1>
         <section>
             <h2>Cookies</h2>
-            <button id="sortByNameBtn">Sortera efter namn</button>
-            <button id="sortByPriceBtn">Sortera efter pris</button>
-            <button id="sortByRatingBtn">Sortera efter rating</button>
+            <div>
+                <button class="sorting-btn" id="sortByNameBtn">Sortera efter namn</button>
+                <button class="sorting-btn" id="sortByPriceBtn">Sortera efter pris</button>
+                <button class="sorting-btn" id="sortByRatingBtn">Sortera efter rating</button>
+            </div>
             <div id="productsContainer">
                 <!-- Fyller på från Javascript -->
             </div>
@@ -31,7 +33,7 @@
             <form>
                 <label>
                     <span>Name</span>
-                    <input type="text" name="name" required>
+                    <input type="text" name="name" autocomplete="name">
                 </label>
                 <label>
                     <span>Lastname</span>
@@ -55,11 +57,11 @@
                 </label>
                 <label>
                     <span>Phone</span>
-                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" autocomplete="tel">
                 </label>
                 <label>
                     <span>Email</span>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" autocomplete="email">
                 </label>
                 <label>
                     <span>Payment Method</span>
@@ -94,14 +96,14 @@
                 </label>
                 <label>
                     <span>Accept perssonal info</span>
-                    <input type="checkbox" required>
+                    <input type="checkbox" name="checkterms" required>
                 </label>
                 <label>
                     <span>Nyhetsbrev</span>
-                    <input type="checkbox">
+                    <input type="checkbox" name="checknews">
                 </label>
                 <input id="resetform" type="reset" value="Reset">
-                <input type="submit" name="submit" value="Make Purchase">
+                <input type="submit" name="submit" value="Make Purchase" disabled>
             </form>
         </section>
     </main>
