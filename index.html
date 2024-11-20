@@ -11,7 +11,7 @@
 </head>
 <body>
     <main>
-        <header>Header</header>
+        <header></header>
         <h1>Webshop</h1>
         <section>
             <h2>Cookies</h2>
@@ -52,7 +52,8 @@
                     <input type="text" name="town" required>
                 </label>
                 <label>
-                    <span>Door code - Optional</span>
+                    <span>Door code</span>
+                    <i>Optional</i>
                     <input type="number" name="doorcode">
                 </label>
                 <label>
@@ -67,7 +68,7 @@
                     <span>Payment Method</span>
                     <select name="paymentMethod" id="paymentMethod" required>
                         <option value="card">Card</option>
-                        <option value="invoice">Invoice</option>
+                        <option value="invoice" disabled>Invoice</option>
                     </select>
                 </label>
                 <div id="payByCard">
@@ -102,10 +103,11 @@
                     <span>Nyhetsbrev</span>
                     <input type="checkbox" name="checknews">
                 </label>
-                <input id="resetform" type="reset" value="Reset">
-                <input type="submit" name="submit" value="Make Purchase" disabled>
+                <input class="reset" id="resetform" type="reset" value="Reset">
+                <input class="submit" type="submit" name="submit" value="Make Purchase" disabled>
             </form>
         </section>
+        <footer></footer>
     </main>
     <script src="script.js"></script>
 </body>
