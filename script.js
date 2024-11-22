@@ -11,6 +11,9 @@ const sortByNameBtn = document.querySelector('#sortByNameBtn');
 const sortByPriceBtn = document.querySelector('#sortByPriceBtn');
 const sortByRatingBtn = document.querySelector('#sortByRatingBtn');
 
+// - Reset Button
+const resetAllBtn = document.querySelector('#resetAllBtn');
+
 // ---------------- VARIABLES
 // ----------------
 
@@ -78,8 +81,11 @@ sortByNameBtn.addEventListener('click', sortByName);
 sortByPriceBtn.addEventListener('click', sortByPrice);
 sortByRatingBtn.addEventListener('click', sortByRating);
 
+resetAllBtn.addEventListener('click', resetAllProducts);
+
 // ---------------- FUNCTIONS
 // ----------------
+
 
 // --- PRINT PRODUCTS IN HTML
 function printProducts() {
@@ -176,6 +182,9 @@ function printCartContainer() {
 // --- INCREASE PRODUCT AMOUNT
 function increaseProductCount(e) {
     const productId = Number(e.target.id.replace('increase-', ''));
+    // id på knappen
+    const clickedButtonId = e.target.id;
+
     // Leta rätt på produkten i arrayen som har det id:t
     const foundProductIndex = product.findIndex(product => product.id === productId);
     // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
@@ -185,11 +194,16 @@ function increaseProductCount(e) {
     }
     product[foundProductIndex].amount += 1; // öka dess amount med +1
     printProducts();
+    // Focus på knappen efter print
+    document.querySelector(`#${clickedButtonId}`).focus();
 }
 
 // --- DECREASE PRODUCT AMOUNT
 function decreaseProductCount(e) {
     const productId = Number(e.target.id.replace('decrease-', ''));
+    // id på knappen
+    const clickedButtonId = e.target.id;
+
     // Leta rätt på produkten i arrayen som har det id:t
     const foundProductIndex = product.findIndex(product => product.id === productId);
     // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
@@ -203,6 +217,8 @@ function decreaseProductCount(e) {
         product[foundProductIndex].amount -= 1; // minska dess amount med -1
     }
     printProducts();
+    // Focus på knappen efter print
+    document.querySelector(`#${clickedButtonId}`).focus();
 }
 
 function sortByPrice() {
@@ -224,6 +240,12 @@ function sortByName() {
 
 function slowCustomerMessage() {
     alert('You were too slow! Your order has been canceled.');
+    product.forEach(prod => prod.amount = 0);
+    printProducts();
+}
+
+function resetAllProducts() {
+    console.log('Reset form and product amount')
     product.forEach(prod => prod.amount = 0);
     printProducts();
 }
