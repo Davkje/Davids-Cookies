@@ -5,7 +5,12 @@ body {
     font-family: "Open-Sans", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -34,6 +39,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     header {
         background-color: $primary-blue;
         height: 5rem;
@@ -51,7 +57,6 @@ section {
     margin: 20px 10px 20px 10px;
 }
 
-
 .product {
     background-color: rgba(0, 0, 0, 0.053);
     border: $primary-blue solid 3px;
@@ -61,23 +66,41 @@ section {
     padding: 1rem;
     border-radius: 10px;
     margin-bottom: 2rem;
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input:hover {
+        cursor: default;
+    }
 }
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     label {
         margin: 2px
     }
+
     div {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     .reset {
         margin: 10px 0 10px 0;
     }
+
     .submit {
         width: 400px;
         height: 50px;
