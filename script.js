@@ -103,14 +103,17 @@ function printProducts() {
                 <div>Price: <span>${product.price * priceIncrease}<span> kr</div>
                 <div>Kategori: <span>${product.category}<span></div>
                 <div>Rating: <span>${product.rating}</span></div>
-                <div>
-                    <button class="decrease" id="decrease-${product.id}"> - </button>
-                    <input type="number" min="0" value="${product.amount}" id="input-${product.id}">
-                    <button class="increase" id="increase-${product.id}"> + </button>
+                <span>Add:</span>
+                <div class="amount-row">
+                    <button class="decrease amount-btn" id="decrease-${product.id}"> - </button>
+                    <div><span id="input-${product.id}">${product.amount}</span></div>
+                    <button class="increase amount-btn" id="increase-${product.id}"> + </button>
                 </div>
             </article>
         `;
     });
+
+    // GAMLA INPUT IST FÖR SPAN  - <input class="productAmountInput" type="number" min="0" value="${product.amount}" id="input-${product.id}">
 
     // INCREASE BTN w. CLICK EVENT
     const increaseButtons = document.querySelectorAll('button.increase');
