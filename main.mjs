@@ -4,6 +4,11 @@
 
 import product from "./products.mjs";
 
+// ----------------- REGEX -----------------------------
+const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
+const creditCardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/); // MasterCard
+
+
 // ---------------- HTML ELEMENTS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
@@ -23,48 +28,25 @@ const categoryFilterRadios = document.querySelectorAll('[name="categoryFilter"]'
 const priceRangeSlider = document.querySelector('#priceRange')
 const currentRangeValue = document.querySelector('#currentRangeValue')
 
-// - Form
+// ------ Form -----
 
-const carddInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
-carddInvoiceRadios.forEach(radioBtn => {
-    radioBtn.addEventListener('change', switchPaymentMethod);
-});
-
+const orderBtn = document.querySelector('#purchaseBtn');
 const invoiceOption = document.querySelector('#invoice');
 const cardOption = document.querySelector('#card');
-let selectedPaymentOption = 'card'; 
 
-
-
+const PaymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+PaymentMethodRadios.forEach(radioBtn => {
+    radioBtn.addEventListener('change', switchPaymentMethod);
+});
 
 
 const personalId = document.querySelector('#personalID');
 personalId.addEventListener('change', activateOrderButton);
 
-
-// REGEX
-const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
-
-
-function isPersonalIdNumberValid() {
-    return personalIdRegEx.exec(personalId.value);
-}
-
-const orderBtn = document.querySelector('#purchaseBtn');
-
-
-function activateOrderButton() {
-    if (selectedPaymentOption === 'invoice' && isPersonalIdNumberValid()) {
-        // console.log('aktivera');
-        orderBtn.removeAttribute('disabled');
-    } else if(selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
-        // console.log('inaktivera');
-        orderBtn.setAttribute('disabled', '');
-    }
-}
+let selectedPaymentOption = 'card';
 
 // - Payment option  - Card or Invoice Hidden/Visible
-function switchPaymentMethod(e) { 
+function switchPaymentMethod(e) {
     invoiceOption.classList.toggle('hidden');
     cardOption.classList.toggle('hidden');
 
@@ -72,8 +54,58 @@ function switchPaymentMethod(e) {
     console.log(selectedPaymentOption);
 }
 
+// -- Validdation --
+function isPersonalIdNumberValid() {
+    return personalIdRegEx.exec(personalId.value);
+}
+
+// ---- ACTIVATE ORDER BUTTON
+function activateOrderButton() {
+    orderBtn.setAttribute('disabled', '');
+
+    if (selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
+        return;
+    }
+
+    if (selectedPaymentOption === 'card') {
+        // Check card number
+        if (creditCardNumberRegEx.exec(creditCardNumber.value) === null) {
+            console.warn('Credit card number not valid.');
+            return;
+        }
+
+        // Check card year
+        let year = Number(creditCardYear.value);
+        const today = new Date();
+        const shortYear = Number(String(today.getFullYear()).substring(2));
+
+        if (year > shortYear + 2 || year < shortYear) {
+            console.warn('Credit card month not valid.');
+            return;
+        }
+
+        // ------  TODO: Fixa månad, obs. "padStart" med 0! Såg till ca 32.00 i  videon!
+
+        // Check card CVC
+        if (creditCardCvc.value.length !== 3) {
+            console.warn('CVC not valid.');
+            return;
+        }
+    }
+
+    orderBtn.removeAttribute('disabled');
+}
 
 
+const creditCardNumber = document.querySelector('#creditCardNumber');
+const creditCardYear = document.querySelector('#creditCardYear');
+const creditCardMonth = document.querySelector('#creditCardMonth');
+const creditCardCvc = document.querySelector('#creditCardCvc');
+
+creditCardNumber.addEventListener('change', activateOrderButton);
+creditCardYear.addEventListener('change', activateOrderButton);
+creditCardMonth.addEventListener('change', activateOrderButton);
+creditCardCvc.addEventListener('change', activateOrderButton);
 
 
 
@@ -94,7 +126,7 @@ let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
 
 // -------- PRODUCT FILTERING
 let filteredProduct = product;
-let filteredProductInPriceRange = product; 
+let filteredProductInPriceRange = product;
 
 
 // ---------------- EVENT LISTENERS  --------------------------------------------------------------------------
@@ -113,7 +145,7 @@ priceRangeSlider.addEventListener('input', changePriceRange);
 
 resetAllBtn.addEventListener('click', resetAllProducts);
 
- 
+
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
@@ -123,7 +155,7 @@ function changePriceRange() {
     const currentPrice = priceRangeSlider.value;
     currentRangeValue.innerHTML = currentPrice;
 
-    filteredProductInPriceRange = filteredProduct.filter((product) => product.price <=  currentPrice); 
+    filteredProductInPriceRange = filteredProduct.filter((product) => product.price <= currentPrice);
 
     printProducts();
 }
@@ -136,9 +168,9 @@ function updateCategoryFilter(e) {
         filteredProduct = product;
     } else {
         filteredProduct = product.filter(prod => prod.category === selectedCategory);
-    } 
+    }
     changePriceRange();
-     // console.log(selectedCategory);
+    // console.log(selectedCategory);
     // console.log(product);
     // product.forEach( prod => {
     //     if (prod.category === selectedCategory) {
@@ -204,9 +236,9 @@ function printCartContainer() {
     product.forEach(product => {
         orderedProductAmount += product.amount;
 
-        if (product.amount >0 ) {
+        if (product.amount > 0) {
             let productPrice = product.price;
-            if(product.amount >= 10) {
+            if (product.amount >= 10) {
                 productPrice *= 0.9;
                 msg += '<p>Mängdrabbatt: 10 %, 10 av samma!</p>'
             }
@@ -233,7 +265,7 @@ function printCartContainer() {
 
     // HTML CART
     cartContainer.innerHTML += `<p>Total sum: ${sum} kr</p>`;
-    cartContainer.innerHTML +=  `<div>${msg}</div>`;
+    cartContainer.innerHTML += `<div>${msg}</div>`;
 
     // SHIPPING - över 15 är gratis, annars 25kr + 10%
     if (orderedProductAmount > 15) {
