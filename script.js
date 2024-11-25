@@ -1,6 +1,6 @@
 
-// ---------------- HTML ELEMENTS
-// ----------------
+// ---------------- HTML ELEMENTS -----------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 
 // - Containers
 const productsContainer = document.querySelector('#productsContainer');
@@ -10,11 +10,10 @@ const cartContainer = document.querySelector('#cartContainer');
 const sortByNameBtn = document.querySelector('#sortByNameBtn');
 const sortByPriceBtn = document.querySelector('#sortByPriceBtn');
 const sortByRatingBtn = document.querySelector('#sortByRatingBtn');
+
 // - Categories
-// const categoryFilterRadios = document.querySelectorAll('[name="categoryFilter"]');
-const saltyRadio = document.querySelector('#saltyRadio');
-const sweetRadio = document.querySelector('#sweetRadio');
-const veganRadio = document.querySelector('#veganRadio');
+const categoryFilterRadios = document.querySelectorAll('[name="categoryFilter"]');
+
 // -  Price Range
 const priceRangeSlider = document.querySelector('#priceRange')
 const currentRangeValue = document.querySelector('#currentRangeValue')
@@ -22,8 +21,8 @@ const currentRangeValue = document.querySelector('#currentRangeValue')
 // - Reset Button
 const resetAllBtn = document.querySelector('#resetAllBtn');
 
-// ---------------- VARIABLES
-// ----------------
+// ---------------- VARIABLES ---------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 
 const today = new Date();
 const isFriday = today.getDay() === 6; // true eller false, är det Fredag
@@ -33,13 +32,15 @@ const currentHour = today.getHours();
 
 let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
 
-// ------- PRODUCT ARREY & OBJECTS -------
+
+// ---------------- PRODUCT ARREY & OBJECTS -------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 
 const product = [ 
     {
         id: 0,
         name: 'Chocolate Chip',
-        price: 125,
+        price: 100,
         rating: 4,
         amount: 0,
         category: 'Sweet',
@@ -81,57 +82,69 @@ const product = [
 ];
 
 let filteredProduct = product;
-let filteredProductInRange = product;
+let filteredProductInPriceRange = product; 
 
 // --------CATEGORYS
 const sweetCat = product.filter(product => product.category === 'Sweet')
 const saltyCat = product.filter(product => product.category === 'Salty')
 const veganCat = product.filter(product => product.category === 'Vegan')
 
-// ---------------- EVENT LISTENERS
+
+// ---------------- EVENT LISTENERS  --------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+
+
 sortByNameBtn.addEventListener('click', sortByName);
 sortByPriceBtn.addEventListener('click', sortByPrice);
 sortByRatingBtn.addEventListener('click', sortByRating);
 
-veganRadio.addEventListener('input', updateCategoryFilter);
-sweetRadio.addEventListener('input', updateCategoryFilter);
-saltyRadio.addEventListener('input', updateCategoryFilter);
-
+categoryFilterRadios.forEach(radio => {
+    radio.addEventListener('input', updateCategoryFilter);
+});
 
 priceRangeSlider.addEventListener('input', changePriceRange);
 
 resetAllBtn.addEventListener('click', resetAllProducts);
 
-// ---------------- FUNCTIONS
-// ----------------
 
-function updateCategoryFilter(e) {
-    const selectedCategory = e.currentTarget.value;
-    console.log(selectedCategory);
+// ---------------- FUNCTIONS  --------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 
-    // if (selectedCategory === 'all') {
-    //     filteredProduct = product;
-    // } else {
-    //     // Töm
-    // } filteredProduct = [];
 
-    // for (let i = 0; i < product.length; i++) {
-    //     const prod = product[i];
+// ---------------- FILTRERA PRICE RANGE w.SLIDER
+function changePriceRange() {
+    const currentPrice = priceRangeSlider.value;
+    currentRangeValue.innerHTML = currentPrice;
 
-    //     const catsInLowercase = [];
-    //     for (let j = 0; j < prod.category.length; j++) {
-    //         catsInLowercase.push(prod.category[j].toLowerCase());
-    //     }
-    //     if (catsInLowercase.indexOf(selectedCategory) > -1) {
-    //         filteredProduct.push(prod);
-    //     }
-    // }
+    filteredProductInPriceRange = filteredProduct.filter((product) => product.price <=  currentPrice); 
+
     printProducts();
 }
 
+// ---------------- FILTRERA CATEGORIER
+function updateCategoryFilter(e) {
+    const selectedCategory = e.currentTarget.value;
 
-// ---------------- PRINT PRODUCTS IN HTML
-// ----------------
+    if (selectedCategory === 'All') {
+        filteredProduct = product;
+    } else {
+        filteredProduct = product.filter(prod => prod.category === selectedCategory);
+    } 
+
+    // console.log(selectedCategory);
+    // console.log(product);
+    // product.forEach( prod => {
+    //     if (prod.category === selectedCategory) {
+    //         console.log('its a match!')
+    //     } else {
+    //         console.log('No match!')
+    //     }
+    // })
+    changePriceRange();
+}
+
+// ---------------- PRINT PRODUCTS IN HTML ----------------
+// --------------------------------------------------------                         
 function printProducts() {
     // RENSA
     productsContainer.innerHTML = '';
@@ -139,7 +152,7 @@ function printProducts() {
     let priceIncrease = getPriceMultiplier();
 
     // PRINT HTML - För varje product - printa en articel med innehåll i den tomma div'en 
-    filteredProduct.forEach(product => {
+    filteredProductInPriceRange.forEach(product => {
         productsContainer.innerHTML += `
             <article class="product">
                 <h3>${product.name}</h3>
@@ -157,12 +170,11 @@ function printProducts() {
         `;
     });
 
-    // INCREASE BTN w. CLICK EVENT
+    // INCREASE/DECREASE BTN w. CLICK EVENT
     const increaseButtons = document.querySelectorAll('button.increase');
     increaseButtons.forEach(button => {
         button.addEventListener('click', increaseProductCount);
     });
-
     const decreaseButtons = document.querySelectorAll('button.decrease');
     decreaseButtons.forEach(button => {
         button.addEventListener('click', decreaseProductCount);
@@ -171,7 +183,8 @@ function printProducts() {
     printCartContainer(); // Print cart to update price and amount etc
 }
 
-// --- PRINT & UPDATE CART
+// ---------------- PRINT & UPDATE CART -------------------
+// -------------------------------------------------------- 
 function printCartContainer() {
     cartContainer.innerHTML = ''; // Rensa
 
@@ -279,13 +292,6 @@ function sortByRating() {
 function sortByName() {
     product.sort((prod1, prod2) => prod1.name.localeCompare(prod2.name));
     printProducts();
-}
-
-
-
-function changePriceRange() {
-    const currentPrice = priceRangeSlider.value;
-    currentRangeValue.innerHTML = currentPrice;
 }
 
 // --- Message - To Slow

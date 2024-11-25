@@ -23,20 +23,24 @@
             <div class="category-radios">
                 <label>
                     <span>Salty</span>
-                    <input type="radio" name="categoryFilter" id="saltyRadio" value="saltyCat">
+                    <input type="radio" name="categoryFilter" id="saltyRadio" value="Salty">
                 </label>
                 <label>
                     <span>Sweet</span>
-                    <input type="radio" name="categoryFilter" id="sweetRadio" value="sweetCat">
+                    <input type="radio" name="categoryFilter" id="sweetRadio" value="Sweet">
                 </label>
                 <label>
                     <span>Vegan</span>
-                    <input type="radio" name="categoryFilter" id="veganRadio" value="veganCat">
+                    <input type="radio" name="categoryFilter" id="veganRadio" value="Vegan">
+                </label>
+                <label>
+                    <span>Show All</span>
+                    <input type="radio" name="categoryFilter" id="allRadio" value="All" checked>
                 </label>
             </div>
             <label>
                 <span>Price Slider</span>
-                <input type="range" name="priceRange" id="priceRange"  value="100" min="0" max="300">
+                <input type="range" name="priceRange" id="priceRange"  value="100" min="0" max="100" step="10">
                 <span id="currentRangeValue">100</span>kr
             </label>
             <div id="productsContainer">
