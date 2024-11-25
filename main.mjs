@@ -23,6 +23,62 @@ const categoryFilterRadios = document.querySelectorAll('[name="categoryFilter"]'
 const priceRangeSlider = document.querySelector('#priceRange')
 const currentRangeValue = document.querySelector('#currentRangeValue')
 
+// - Form
+
+const carddInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+carddInvoiceRadios.forEach(radioBtn => {
+    radioBtn.addEventListener('change', switchPaymentMethod);
+});
+
+const invoiceOption = document.querySelector('#invoice');
+const cardOption = document.querySelector('#card');
+let selectedPaymentOption = 'card'; 
+
+
+
+
+
+const personalId = document.querySelector('#personalID');
+personalId.addEventListener('change', activateOrderButton);
+
+
+// REGEX
+const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
+
+
+function isPersonalIdNumberValid() {
+    return personalIdRegEx.exec(personalId.value);
+}
+
+const orderBtn = document.querySelector('#purchaseBtn');
+
+
+function activateOrderButton() {
+    if (selectedPaymentOption === 'invoice' && isPersonalIdNumberValid()) {
+        // console.log('aktivera');
+        orderBtn.removeAttribute('disabled');
+    } else if(selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
+        // console.log('inaktivera');
+        orderBtn.setAttribute('disabled', '');
+    }
+}
+
+// - Payment option  - Card or Invoice Hidden/Visible
+function switchPaymentMethod(e) { 
+    invoiceOption.classList.toggle('hidden');
+    cardOption.classList.toggle('hidden');
+
+    selectedPaymentOption = e.target.value;
+    console.log(selectedPaymentOption);
+}
+
+
+
+
+
+
+
+
 // - Reset Button
 const resetAllBtn = document.querySelector('#resetAllBtn');
 
@@ -81,7 +137,8 @@ function updateCategoryFilter(e) {
     } else {
         filteredProduct = product.filter(prod => prod.category === selectedCategory);
     } 
-    // console.log(selectedCategory);
+    changePriceRange();
+     // console.log(selectedCategory);
     // console.log(product);
     // product.forEach( prod => {
     //     if (prod.category === selectedCategory) {
@@ -90,7 +147,6 @@ function updateCategoryFilter(e) {
     //         console.log('No match!')
     //     }
     // })
-    changePriceRange();
 }
 
 // ---------------- PRINT PRODUCTS IN HTML ----------------
