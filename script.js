@@ -10,6 +10,14 @@ const cartContainer = document.querySelector('#cartContainer');
 const sortByNameBtn = document.querySelector('#sortByNameBtn');
 const sortByPriceBtn = document.querySelector('#sortByPriceBtn');
 const sortByRatingBtn = document.querySelector('#sortByRatingBtn');
+// - Categories
+// const categoryFilterRadios = document.querySelectorAll('[name="categoryFilter"]');
+const saltyRadio = document.querySelector('#saltyRadio');
+const sweetRadio = document.querySelector('#sweetRadio');
+const veganRadio = document.querySelector('#veganRadio');
+// -  Price Range
+const priceRangeSlider = document.querySelector('#priceRange')
+const currentRangeValue = document.querySelector('#currentRangeValue')
 
 // - Reset Button
 const resetAllBtn = document.querySelector('#resetAllBtn');
@@ -25,7 +33,7 @@ const currentHour = today.getHours();
 
 let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
 
-// --- PRODUCT ARREY & OBJECTS
+// ------- PRODUCT ARREY & OBJECTS -------
 
 const product = [ 
     {
@@ -62,7 +70,7 @@ const product = [
         price: 15,
         rating: 5,
         amount: 0,
-        category: 'Salty',
+        category: 'Vegan',
         img: {
             url: 'assets/images/cookie.jpg',
             width: 552,
@@ -72,22 +80,58 @@ const product = [
     },
 ];
 
-// - Categorys
+let filteredProduct = product;
+let filteredProductInRange = product;
+
+// --------CATEGORYS
 const sweetCat = product.filter(product => product.category === 'Sweet')
 const saltyCat = product.filter(product => product.category === 'Salty')
+const veganCat = product.filter(product => product.category === 'Vegan')
 
 // ---------------- EVENT LISTENERS
 sortByNameBtn.addEventListener('click', sortByName);
 sortByPriceBtn.addEventListener('click', sortByPrice);
 sortByRatingBtn.addEventListener('click', sortByRating);
 
+veganRadio.addEventListener('input', updateCategoryFilter);
+sweetRadio.addEventListener('input', updateCategoryFilter);
+saltyRadio.addEventListener('input', updateCategoryFilter);
+
+
+priceRangeSlider.addEventListener('input', changePriceRange);
+
 resetAllBtn.addEventListener('click', resetAllProducts);
 
 // ---------------- FUNCTIONS
 // ----------------
 
+function updateCategoryFilter(e) {
+    const selectedCategory = e.currentTarget.value;
+    console.log(selectedCategory);
 
-// --- PRINT PRODUCTS IN HTML
+    // if (selectedCategory === 'all') {
+    //     filteredProduct = product;
+    // } else {
+    //     // Töm
+    // } filteredProduct = [];
+
+    // for (let i = 0; i < product.length; i++) {
+    //     const prod = product[i];
+
+    //     const catsInLowercase = [];
+    //     for (let j = 0; j < prod.category.length; j++) {
+    //         catsInLowercase.push(prod.category[j].toLowerCase());
+    //     }
+    //     if (catsInLowercase.indexOf(selectedCategory) > -1) {
+    //         filteredProduct.push(prod);
+    //     }
+    // }
+    printProducts();
+}
+
+
+// ---------------- PRINT PRODUCTS IN HTML
+// ----------------
 function printProducts() {
     // RENSA
     productsContainer.innerHTML = '';
@@ -95,7 +139,7 @@ function printProducts() {
     let priceIncrease = getPriceMultiplier();
 
     // PRINT HTML - För varje product - printa en articel med innehåll i den tomma div'en 
-    product.forEach(product => {
+    filteredProduct.forEach(product => {
         productsContainer.innerHTML += `
             <article class="product">
                 <h3>${product.name}</h3>
@@ -112,8 +156,6 @@ function printProducts() {
             </article>
         `;
     });
-
-    // GAMLA INPUT IST FÖR SPAN  - <input class="productAmountInput" type="number" min="0" value="${product.amount}" id="input-${product.id}">
 
     // INCREASE BTN w. CLICK EVENT
     const increaseButtons = document.querySelectorAll('button.increase');
@@ -239,14 +281,21 @@ function sortByName() {
     printProducts();
 }
 
-// --- Message - To Slow
 
+
+function changePriceRange() {
+    const currentPrice = priceRangeSlider.value;
+    currentRangeValue.innerHTML = currentPrice;
+}
+
+// --- Message - To Slow
 function slowCustomerMessage() {
     alert('You were too slow! Your order has been canceled.');
     product.forEach(prod => prod.amount = 0);
     printProducts();
 }
 
+// --- Reset all Products and Form
 function resetAllProducts() {
     console.log('Reset form and product amount')
     product.forEach(prod => prod.amount = 0);
