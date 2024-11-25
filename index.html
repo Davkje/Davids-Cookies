@@ -87,32 +87,39 @@
                     <span>Email</span>
                     <input type="email" name="email" autocomplete="email">
                 </label>
-                <label>
-                    <span>Payment Method</span>
-                    <select name="paymentMethod" id="paymentMethod" required>
-                        <option value="card">Card</option>
-                        <option value="invoice" disabled>Invoice</option>
-                    </select>
-                </label>
-                <div id="payByCard">
-                    <label>
-                        <span>Card number</span>
-                        <input type="number" name="cardnumber">
-                    </label>
-                    <label>
-                        <span>Date / Year</span>
-                        <input type="number" name="dateyear">
-                    </label>
-                    <label>
-                        <span>CVC</span>
-                        <input type="number" name="cvc">
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <span>Swedish Social Security Nr</span>
-                        <input type="number" name="securitynumber">
-                    </label>
+                <div class="payment-method">
+                    <div class="selector">
+                        <label>
+                            <input type="radio" name="payment-option" value="invoice">
+                            <span>Faktura</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="payment-option" value="card" checked>
+                            <span>Kort</span>
+                        </label>
+                    </div>
+                    <div class="invoice hidden" id="invoice">
+                        <label>
+                            <span>Personnummer</span>
+                            <input type="number" name="personal-id" id="personalID">
+                        </label>
+                      </div>
+                    <div class="card" id="card">
+                        <label>
+                            <span>Kortnummer</span>
+                            <input type="number" id="creditCardNumber">
+                        </label>
+                        <label>
+                            <span>Datum</span>
+                            <span>
+                                <input type="number" class="small" placeholder="YY" id="creditCardYear">/<input type="number" class="small" placeholder="MM" id="creditCardMonth">
+                            </span>
+                        </label>
+                        <label>
+                            <span>CVC</span>
+                            <input type="number" placeholder="123" id="creditCardCvc">
+                        </label>
+                      </div>
                 </div>
                 <label>
                     <span>Discount Code</span>
@@ -132,6 +139,6 @@
         </section>
         <footer></footer>
     </main>
-    <script src="script.js"></script>
+    <script type="module" src="main.mjs"></script>
 </body>
 </html>

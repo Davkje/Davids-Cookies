@@ -1,4 +1,9 @@
 
+// ---------------- IMPORTS -----------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+
+import product from "./products.mjs";
+
 // ---------------- HTML ELEMENTS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
@@ -27,67 +32,13 @@ const resetAllBtn = document.querySelector('#resetAllBtn');
 const today = new Date();
 const isFriday = today.getDay() === 6; // true eller false, är det Fredag
 const isMonday = today.getDay() === 1; // Måndag
-
 const currentHour = today.getHours();
 
 let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
 
-
-// ---------------- PRODUCT ARREY & OBJECTS -------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------
-
-const product = [ 
-    {
-        id: 0,
-        name: 'Chocolate Chip',
-        price: 100,
-        rating: 4,
-        amount: 0,
-        category: 'Sweet',
-        img: {
-            url: 'assets/images/cookie.jpg',
-            width: 552,
-            height: 552,
-            alt: 'Chocolate chip cookie'
-        },
-    },
-    {
-        id: 1,
-        name: 'Mint Chip',
-        price: 25,
-        rating: 1,
-        amount: 0,
-        category: 'Salty',
-        img: {
-            url: 'assets/images/cookie.jpg',
-            width: 552,
-            height: 552,
-            alt: 'Chocolate chip cookie'
-        },
-    },
-    {
-        id: 2,
-        name: 'Hazel Dream',
-        price: 15,
-        rating: 5,
-        amount: 0,
-        category: 'Vegan',
-        img: {
-            url: 'assets/images/cookie.jpg',
-            width: 552,
-            height: 552,
-            alt: 'Chocolate chip cookie'
-        },
-    },
-];
-
+// -------- PRODUCT FILTERING
 let filteredProduct = product;
 let filteredProductInPriceRange = product; 
-
-// --------CATEGORYS
-const sweetCat = product.filter(product => product.category === 'Sweet')
-const saltyCat = product.filter(product => product.category === 'Salty')
-const veganCat = product.filter(product => product.category === 'Vegan')
 
 
 // ---------------- EVENT LISTENERS  --------------------------------------------------------------------------
@@ -106,8 +57,8 @@ priceRangeSlider.addEventListener('input', changePriceRange);
 
 resetAllBtn.addEventListener('click', resetAllProducts);
 
-
-// ---------------- FUNCTIONS  --------------------------------------------------------------------------------
+ 
+// ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
 
@@ -130,7 +81,6 @@ function updateCategoryFilter(e) {
     } else {
         filteredProduct = product.filter(prod => prod.category === selectedCategory);
     } 
-
     // console.log(selectedCategory);
     // console.log(product);
     // product.forEach( prod => {
@@ -237,7 +187,7 @@ function printCartContainer() {
     }
 }
 
-// --- INCREASE PRODUCT AMOUNT
+// --- INCREASE / DECREASE PRODUCT AMOUNT
 function increaseProductCount(e) {
     const productId = Number(e.target.id.replace('increase-', ''));
     // id på knappen
@@ -256,7 +206,6 @@ function increaseProductCount(e) {
     document.querySelector(`#${clickedButtonId}`).focus();
 }
 
-// --- DECREASE PRODUCT AMOUNT
 function decreaseProductCount(e) {
     const productId = Number(e.target.id.replace('decrease-', ''));
     // id på knappen
@@ -279,18 +228,19 @@ function decreaseProductCount(e) {
     document.querySelector(`#${clickedButtonId}`).focus();
 }
 
+// --- SORT PRODUCTS
 function sortByPrice() {
-    product.sort((prod1, prod2) => prod1.price - prod2.price);
+    filteredProductInPriceRange.sort((prod1, prod2) => prod1.price - prod2.price);
     printProducts();
 }
 
 function sortByRating() {
-    product.sort((prod1, prod2) => prod2.rating - prod1.rating);
+    filteredProductInPriceRange.sort((prod1, prod2) => prod2.rating - prod1.rating);
     printProducts();
 }
 
 function sortByName() {
-    product.sort((prod1, prod2) => prod1.name.localeCompare(prod2.name));
+    filteredProductInPriceRange.sort((prod1, prod2) => prod1.name.localeCompare(prod2.name));
     printProducts();
 }
 
@@ -316,5 +266,6 @@ function getPriceMultiplier() {
     return 1;
 }
 
+// -- PRINT PAGE
 printProducts();
 
