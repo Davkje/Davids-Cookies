@@ -17,7 +17,7 @@ const product = [
         id: 1,
         name: 'Mint Chip',
         price: 25,
-        rating: 1,
+        rating: 1.5,
         amount: 0,
         category: 'Salty',
         img: {

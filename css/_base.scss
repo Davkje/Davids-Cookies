@@ -5,6 +5,11 @@ body {
     font-family: "Open-Sans", sans-serif;
 }
 
+
+.hidden {
+    display: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 10px;
     margin-top: 10px;
@@ -22,53 +27,52 @@ img {
     border-radius: 10px;
 }
 
+// ---- MAIN  PAGE
+
 header {
+    background-color: $primary-blue;
+    width: 100%;
     position: fixed;
     top: 0;
-    background-color: $primary-blue;
     height: 5rem;
     display: flex;
     justify-content: flex-end;
     .cart-container {
         position: fixed;
-        top: 3.4rem;
+        top: 3rem;
+        right: 10px;
         margin: 10px;
         background-color: rgb(255, 255, 255);
-        height: 35px;
-        width: 35px;
-        border: solid $primary-blue 2px;
+        height: 45px;
+        width: 45px;
+        border: solid $primary-blue 3px;
         border-radius: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         .cart-icon {
             color: $primary-blue;
+            font-size: 2rem;
         }
         .cart-amount-container {
             position: fixed;
-            right: 28px;
-            top: 5.3rem;
+            right: 10px;
+            top: 5.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: rgb(255, 255, 255);
             border-radius: 100%;
-            border: solid $primary-blue 2px;
-            height: 20px;
-            width: 20px;
+            border: solid $primary-blue 3px;
+            height: 30px;
+            width: 30px;
             text-align: center;
             .cart-amount {
                 color: $primary-blue;
+                font-size: 1.2rem;
             }
         }
     }
-}
-
-footer {
-    background-color: $primary-blue;
-    margin-top: 1rem;
-    height: 5rem;
-    width: 100%;
 }
 
 main {
@@ -76,22 +80,12 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    header {
-        background-color: $primary-blue;
-        height: 5rem;
-        width: 100%;
-    }
-}
-
-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .sorting-btn {
     margin: 20px 10px 20px 10px;
+    height: 30px;
+    width: 80px;
 }
 
 .product {
@@ -138,32 +132,76 @@ section {
     }
 }
 
-form {
+section {
+    max-width: 90vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
 
+.checkout-section {
+    background-color: rgba(0, 0, 0, 0.07);
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+}
+
+form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 10px;
+    flex-direction: column;
+    align-items: center;
     label {
-        margin: 2px;
         width: 100%;
-    }
-
-    div {
+        grid-column: span 4;
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        justify-content: space-between;
     }
-
+    .payment-method {
+        grid-template-columns: repeat(4, 1fr);
+        display: grid;
+        grid-column: span 4;
+        background-color: rgba(0, 0, 0, 0.159);
+        padding: 10px 20px 10px 20px ;
+        border-radius: 10px;
+        .selector {
+            grid-column: 2 / 4;
+            display: flex;
+            label {
+                display: flex;
+                gap: 5px;
+                justify-content: center;
+            }
+        }
+        .option {
+            grid-column: span 4;
+        }
+        .small {
+            width: 50px;
+        }
+    }
     .reset {
-        margin: 10px 0 10px 0;
+        grid-column: span 4;
+        width: 100px;
+        margin: auto;
     }
-
     .submit {
-        width: 400px;
+        margin: auto;
+        grid-column: span 4;
+        width: 200px;
         height: 50px;
     }
 }
 
-.hidden {
-    display: none;
+.payment-input {
+    margin: 10px 0 10px 0;
+}
+
+footer {
+    background-color: $primary-blue;
+    margin-top: 1rem;
+    height: 5rem;
+    width: 100%;
 }

@@ -103,6 +103,22 @@ resetAllBtn.addEventListener('click', resetAllProducts);
 // ------------------------------------------------------------------------------------------------------------
 
 
+// ---------------- MAKE RATING NR STARS
+function getRatingHtml(rating) {
+    // If has half star rating; detect by checking for dot/decimal
+    const isHalf = String(rating).indexOf('.');
+
+    let html = '';
+    for (let i = 0; i < rating; i++) {
+        html += `<span class="material-symbols-outlined star-icon">star</span>`;
+    }
+    if (isHalf !== -1) {
+        html += `<span class="material-symbols-outlined star-icon">star_half</span>`;
+    }
+    return html;
+}
+
+
 // ---------------- PRINT AMOUNT ON CART ICON
 
 function printCartIconAmount() {
@@ -169,7 +185,7 @@ function printProducts() {
                 <img src="${product.img.url}" alt="${product.img.alt}">
                 <div>Price: <span>${product.price * priceIncrease}<span> kr</div>
                 <div>Kategori: <span>${product.category}<span></div>
-                <div>Rating: <span>${product.rating}</span></div>
+                <div>Rating: ${getRatingHtml(product.rating)}</div>
                 <span>Add:</span>
                 <div class="amount-row">
                     <button class="decrease amount-btn" id="decrease-${product.id}"> - </button>
