@@ -13,6 +13,9 @@ const creditCardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2
 
 // ---------------- Product Variables -----------------
 
+// - Header
+const cartIconAmountContainer = document.querySelector('#cartIconAmountContainer');
+
 // - Containers
 const productsContainer = document.querySelector('#productsContainer');
 const cartContainer = document.querySelector('#cartContainer');
@@ -99,6 +102,25 @@ resetAllBtn.addEventListener('click', resetAllProducts);
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
+
+// ---------------- PRINT AMOUNT ON CART ICON
+
+function printCartIconAmount() {
+    cartIconAmountContainer.innerHTML = '';
+
+    //  Lokala variabler
+    let orderedProductAmount = 0;
+
+    product.forEach(product => {
+        orderedProductAmount += product.amount;
+    });
+    console.log(orderedProductAmount);
+    cartIconAmountContainer.innerHTML += `
+    <span class="cart-amount">${orderedProductAmount}</span>
+    `;
+
+    //TODO  - Hide if amount is 0!
+}
 
 // ---------------- FILTRERA PRICE RANGE w.SLIDER
 function changePriceRange() {
@@ -225,7 +247,7 @@ function printCartContainer() {
     }
 }
 
-// --- INCREASE / DECREASE PRODUCT AMOUNT
+// --- INCREASE / DECREASE PRODUCT AMOUNT & UPDATES CART ICON AMOUNT
 function increaseProductCount(e) {
     const productId = Number(e.target.id.replace('increase-', ''));
     // id på knappen
@@ -240,8 +262,10 @@ function increaseProductCount(e) {
     }
     product[foundProductIndex].amount += 1; // öka dess amount med +1
     printProducts();
+    printCartIconAmount();
     // Focus på knappen efter print
     document.querySelector(`#${clickedButtonId}`).focus();
+
 }
 
 function decreaseProductCount(e) {
@@ -262,6 +286,7 @@ function decreaseProductCount(e) {
         product[foundProductIndex].amount -= 1; // minska dess amount med -1
     }
     printProducts();
+    printCartIconAmount();
     // Focus på knappen efter print
     document.querySelector(`#${clickedButtonId}`).focus();
 }
@@ -319,12 +344,15 @@ function activateOrderButton() {
         const shortYear = Number(String(today.getFullYear()).substring(2));
 
         if (year > shortYear + 2 || year < shortYear) {
-            console.warn('Credit card month not valid.');
+            console.warn('Card year not valid.');
             return;
         }
-
-        // ------  TODO: Fixa månad, obs. "padStart" med 0! 
-
+        // Check Card Month
+        creditCardMonth.value = creditCardMonth.value.padStart(2, '0');
+        if (creditCardMonth.value > 12 || creditCardMonth.value < 1 || !/^\d{1,2}$/.test(creditCardMonth.value)) {
+            console.warn('Card month not valid.');
+            return;
+        }
         // Check card CVC
         if (creditCardCvc.value.length !== 3) {
             console.warn('CVC not valid.');
@@ -340,6 +368,7 @@ function resetAllProducts() {
     console.log('Reset form and product amount')
     product.forEach(prod => prod.amount = 0);
     printProducts();
+    printCartIconAmount();
 }
 
 // --- Message if To Slow
@@ -356,6 +385,8 @@ function getPriceMultiplier() {
     }
     return 1;
 }
+
+printCartIconAmount();
 
 // -- PRINT PAGE
 printProducts();

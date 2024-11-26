@@ -11,6 +11,10 @@ h1, h2, h3, h4, h5, h6 {
     color: $primary-blue;
 }
 
+h1 {
+    margin-top: 5rem;
+}
+
 img {
     max-width: 250px;
     height: auto;
@@ -19,8 +23,45 @@ img {
 }
 
 header {
+    position: fixed;
+    top: 0;
     background-color: $primary-blue;
     height: 5rem;
+    display: flex;
+    justify-content: flex-end;
+    .cart-container {
+        position: fixed;
+        top: 3.4rem;
+        margin: 10px;
+        background-color: rgb(255, 255, 255);
+        height: 35px;
+        width: 35px;
+        border: solid $primary-blue 2px;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .cart-icon {
+            color: $primary-blue;
+        }
+        .cart-amount-container {
+            position: fixed;
+            right: 28px;
+            top: 5.3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 100%;
+            border: solid $primary-blue 2px;
+            height: 20px;
+            width: 20px;
+            text-align: center;
+            .cart-amount {
+                color: $primary-blue;
+            }
+        }
+    }
 }
 
 footer {
