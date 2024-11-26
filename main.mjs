@@ -8,9 +8,10 @@ import product from "./products.mjs";
 const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
 const creditCardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/); // MasterCard
 
-
 // ---------------- HTML ELEMENTS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
+
+// ---------------- Product Variables -----------------
 
 // - Containers
 const productsContainer = document.querySelector('#productsContainer');
@@ -28,91 +29,29 @@ const categoryFilterRadios = document.querySelectorAll('[name="categoryFilter"]'
 const priceRangeSlider = document.querySelector('#priceRange')
 const currentRangeValue = document.querySelector('#currentRangeValue')
 
-// ------ Form -----
+// ---------------- Form Variables -----------------
 
-const orderBtn = document.querySelector('#purchaseBtn');
+// - Inputs
+const inputs = [
+    document.querySelector('#creditCardNumber'),
+    document.querySelector('#creditCardYear'),
+    document.querySelector('#creditCardMonth'),
+    document.querySelector('#creditCardCvc'),
+    document.querySelector('#personalID'),
+];
+
+// - Payment Opitions
+const paymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
 const invoiceOption = document.querySelector('#invoice');
 const cardOption = document.querySelector('#card');
-
-const PaymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
-PaymentMethodRadios.forEach(radioBtn => {
-    radioBtn.addEventListener('change', switchPaymentMethod);
-});
-
-
-const personalId = document.querySelector('#personalID');
-personalId.addEventListener('change', activateOrderButton);
-
+// - Default Option
 let selectedPaymentOption = 'card';
-
-// - Payment option  - Card or Invoice Hidden/Visible
-function switchPaymentMethod(e) {
-    invoiceOption.classList.toggle('hidden');
-    cardOption.classList.toggle('hidden');
-
-    selectedPaymentOption = e.target.value;
-    console.log(selectedPaymentOption);
-}
-
-// -- Validdation --
-function isPersonalIdNumberValid() {
-    return personalIdRegEx.exec(personalId.value);
-}
-
-// ---- ACTIVATE ORDER BUTTON
-function activateOrderButton() {
-    orderBtn.setAttribute('disabled', '');
-
-    if (selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
-        return;
-    }
-
-    if (selectedPaymentOption === 'card') {
-        // Check card number
-        if (creditCardNumberRegEx.exec(creditCardNumber.value) === null) {
-            console.warn('Credit card number not valid.');
-            return;
-        }
-
-        // Check card year
-        let year = Number(creditCardYear.value);
-        const today = new Date();
-        const shortYear = Number(String(today.getFullYear()).substring(2));
-
-        if (year > shortYear + 2 || year < shortYear) {
-            console.warn('Credit card month not valid.');
-            return;
-        }
-
-        // ------  TODO: Fixa månad, obs. "padStart" med 0! Såg till ca 32.00 i  videon!
-
-        // Check card CVC
-        if (creditCardCvc.value.length !== 3) {
-            console.warn('CVC not valid.');
-            return;
-        }
-    }
-
-    orderBtn.removeAttribute('disabled');
-}
-
-
-const creditCardNumber = document.querySelector('#creditCardNumber');
-const creditCardYear = document.querySelector('#creditCardYear');
-const creditCardMonth = document.querySelector('#creditCardMonth');
-const creditCardCvc = document.querySelector('#creditCardCvc');
-
-creditCardNumber.addEventListener('change', activateOrderButton);
-creditCardYear.addEventListener('change', activateOrderButton);
-creditCardMonth.addEventListener('change', activateOrderButton);
-creditCardCvc.addEventListener('change', activateOrderButton);
-
-
-
-
 
 // - Reset Button
 const resetAllBtn = document.querySelector('#resetAllBtn');
+// - Order Button
+const orderBtn = document.querySelector('#purchaseBtn');
+
 
 // ---------------- VARIABLES ---------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -132,17 +71,28 @@ let filteredProductInPriceRange = product;
 // ---------------- EVENT LISTENERS  --------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
+// - Product Events
+categoryFilterRadios.forEach(radio => {
+    radio.addEventListener('input', updateCategoryFilter);
+});
 
 sortByNameBtn.addEventListener('click', sortByName);
 sortByPriceBtn.addEventListener('click', sortByPrice);
 sortByRatingBtn.addEventListener('click', sortByRating);
 
-categoryFilterRadios.forEach(radio => {
-    radio.addEventListener('input', updateCategoryFilter);
-});
-
 priceRangeSlider.addEventListener('input', changePriceRange);
 
+// - Form Events
+paymentMethodRadios.forEach(radioBtn => {
+    radioBtn.addEventListener('change', switchPaymentMethod);
+});
+
+inputs.forEach(inputs => {
+    inputs.addEventListener('change', activateOrderButton);
+    inputs.addEventListener('focusout', activateOrderButton);
+});
+
+// - Reset Button
 resetAllBtn.addEventListener('click', resetAllProducts);
 
 
@@ -332,16 +282,69 @@ function sortByName() {
     printProducts();
 }
 
-// --- Message - To Slow
-function slowCustomerMessage() {
-    alert('You were too slow! Your order has been canceled.');
-    product.forEach(prod => prod.amount = 0);
-    printProducts();
+// ----- FORM FUNCTIONS -----
+// --------------------------
+
+
+// - PAYMENT OPTION FUNC  - Card/Invoice Hidden/Visible &  Selected Payment
+function switchPaymentMethod(e) {
+    invoiceOption.classList.toggle('hidden');
+    cardOption.classList.toggle('hidden');
+    selectedPaymentOption = e.target.value;
+}
+
+// ----VALIDATION
+function isPersonalIdNumberValid() {
+    return personalIdRegEx.exec(personalId.value);
+}
+
+// ---- ACTIVATE ORDER BUTTON
+function activateOrderButton() {
+    orderBtn.setAttribute('disabled', '');
+
+    if (selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
+        return;
+    }
+
+    if (selectedPaymentOption === 'card') {
+        // Check card number
+        if (creditCardNumberRegEx.exec(creditCardNumber.value) === null) {
+            console.warn('Credit card number not valid.');
+            return;
+        }
+
+        // Check card year
+        let year = Number(creditCardYear.value);
+        const today = new Date();
+        const shortYear = Number(String(today.getFullYear()).substring(2));
+
+        if (year > shortYear + 2 || year < shortYear) {
+            console.warn('Credit card month not valid.');
+            return;
+        }
+
+        // ------  TODO: Fixa månad, obs. "padStart" med 0! 
+
+        // Check card CVC
+        if (creditCardCvc.value.length !== 3) {
+            console.warn('CVC not valid.');
+            return;
+        }
+    }
+
+    orderBtn.removeAttribute('disabled');
 }
 
 // --- Reset all Products and Form
 function resetAllProducts() {
     console.log('Reset form and product amount')
+    product.forEach(prod => prod.amount = 0);
+    printProducts();
+}
+
+// --- Message if To Slow
+function slowCustomerMessage() {
+    alert('You were too slow! Your order has been canceled.');
     product.forEach(prod => prod.amount = 0);
     printProducts();
 }
