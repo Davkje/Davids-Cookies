@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,12 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
+
 <body>
     <main>
         <header>
@@ -22,35 +26,37 @@
         </header>
         <h1>Webshop</h1>
         <section>
+            <div class="sorting-container">
+                <div>
+                    <button class="sorting-btn" id="sortByNameBtn">Namn</button>
+                    <button class="sorting-btn" id="sortByPriceBtn">Pris</button>
+                    <button class="sorting-btn" id="sortByRatingBtn">Rating</button>
+                </div>
+                <div class="category-radios">
+                    <label>
+                        <span>Salty</span>
+                        <input type="radio" name="categoryFilter" id="saltyRadio" value="Salty">
+                    </label>
+                    <label>
+                        <span>Sweet</span>
+                        <input type="radio" name="categoryFilter" id="sweetRadio" value="Sweet">
+                    </label>
+                    <label>
+                        <span>Vegan</span>
+                        <input type="radio" name="categoryFilter" id="veganRadio" value="Vegan">
+                    </label>
+                    <label>
+                        <span>Show All</span>
+                        <input type="radio" name="categoryFilter" id="allRadio" value="All" checked>
+                    </label>
+                </div>
+                <label>
+                    <span>Price Slider</span>
+                    <input type="range" name="priceRange" id="priceRange" value="100" min="0" max="100" step="10">
+                    <span id="currentRangeValue">100</span>kr
+                </label>
+            </div>
             <h2>Cookies</h2>
-            <div>
-                <button class="sorting-btn" id="sortByNameBtn">Namn</button>
-                <button class="sorting-btn" id="sortByPriceBtn">Pris</button>
-                <button class="sorting-btn" id="sortByRatingBtn">Rating</button>
-            </div>
-            <div class="category-radios">
-                <label>
-                    <span>Salty</span>
-                    <input type="radio" name="categoryFilter" id="saltyRadio" value="Salty">
-                </label>
-                <label>
-                    <span>Sweet</span>
-                    <input type="radio" name="categoryFilter" id="sweetRadio" value="Sweet">
-                </label>
-                <label>
-                    <span>Vegan</span>
-                    <input type="radio" name="categoryFilter" id="veganRadio" value="Vegan">
-                </label>
-                <label>
-                    <span>Show All</span>
-                    <input type="radio" name="categoryFilter" id="allRadio" value="All" checked>
-                </label>
-            </div>
-            <label>
-                <span>Price Slider</span>
-                <input type="range" name="priceRange" id="priceRange"  value="100" min="0" max="100" step="10">
-                <span id="currentRangeValue">100</span>kr
-            </label>
             <div id="productsContainer">
                 <!-- Fyller på från Javascript -->
             </div>
@@ -111,7 +117,7 @@
                             <span>Personnummer</span>
                             <input type="text" name="personal-id" id="personalID" value="19930721-5914">
                         </label>
-                      </div>
+                    </div>
                     <div class="option card" id="card">
                         <label class="payment-input">
                             <span>Kortnummer</span>
@@ -120,14 +126,16 @@
                         <label class="payment-input">
                             <span>Datum</span>
                             <span>
-                                <input type="number" class="small" placeholder="YY" id="creditCardYear" value="24">/<input type="number" class="small" placeholder="MM" id="creditCardMonth" value="11">
+                                <input type="number" class="small" placeholder="YY" id="creditCardYear"
+                                    value="24">/<input type="number" class="small" placeholder="MM" id="creditCardMonth"
+                                    value="11">
                             </span>
                         </label>
                         <label class="payment-input">
                             <span>CVC</span>
                             <input type="number" placeholder="123" id="creditCardCvc" value="259">
                         </label>
-                      </div>
+                    </div>
                 </div>
                 <label>
                     <span>Discount Code</span>
@@ -149,4 +157,5 @@
     </main>
     <script type="module" src="main.mjs"></script>
 </body>
+
 </html>

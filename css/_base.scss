@@ -82,10 +82,32 @@ main {
     align-items: center;
 }
 
+section {
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sorting-container {
+    background-color: rgba(0, 0, 0, 0.13);
+    padding: 10px;
+    border-radius: 10px;
+    width: 90vw;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    div, label {
+        margin: 4px 0 4px 0;
+        display: flex;
+    }
+}
+
 .sorting-btn {
-    margin: 20px 10px 20px 10px;
     height: 30px;
     width: 80px;
+    margin: 0 10px 0 10px;
 }
 
 .product {
@@ -130,13 +152,6 @@ main {
         font-size: 20px;
         color: $primary-blue;
     }
-}
-
-section {
-    max-width: 90vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .checkout-section {
