@@ -58,7 +58,6 @@ const resetAllBtn = document.querySelector('#resetAllBtn');
 // - Order Button
 const orderBtn = document.querySelector('#purchaseBtn');
 
-
 // ---------------- VARIABLES ---------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
@@ -101,7 +100,6 @@ inputs.forEach(inputs => {
 // - Reset Button
 resetAllBtn.addEventListener('click', resetAllProducts);
 
-
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
@@ -121,8 +119,7 @@ function getRatingHtml(rating) {
     return html;
 }
 
-// ---------------- PRINT AMOUNT ON CART ICON
-
+// ---------------- PRINT AMOUNT ON CART ICON AND HIDE IF EMPTY
 function printCartIconAmount() {
     cartIconAmountContainer.innerHTML = '';
 
@@ -137,7 +134,14 @@ function printCartIconAmount() {
     <span class="cart-amount">${orderedProductAmount}</span>
     `;
 
-    //TODO  - Hide if amount is 0!
+    // gör synlig om siffran är större än 0
+    if (orderedProductAmount > 0) {
+        cartIconAmountContainer.classList.remove('invisible');
+    }
+    // Gör osynlig om siffran är 0
+    if (orderedProductAmount <= 0) {
+        cartIconAmountContainer.classList.add('invisible');
+    }  
 }
 
 // ---------------- FILTRERA PRICE RANGE w.SLIDER
@@ -160,15 +164,6 @@ function updateCategoryFilter(e) {
         filteredProduct = product.filter(prod => prod.category === selectedCategory);
     }
     changePriceRange();
-    // console.log(selectedCategory);
-    // console.log(product);
-    // product.forEach( prod => {
-    //     if (prod.category === selectedCategory) {
-    //         console.log('its a match!')
-    //     } else {
-    //         console.log('No match!')
-    //     }
-    // })
 }
 
 // ---------------- PRINT PRODUCTS IN HTML ----------------

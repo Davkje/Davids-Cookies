@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Davids Webbshop</title>
+    <title>Davids Cookies</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
 <body>
     <main>
         <header>
-            <h1>Davids Kakor</h1>
+            <h1>Davids Cookies</h1>
             <div class="cart-container">
                 <span class="material-symbols-outlined cart-icon">shopping_bag</span>
                 <div class="cart-amount-container" id="cartIconAmountContainer">
@@ -27,10 +27,10 @@
         </header>
         <section class="main-section">
             <div class="sorting-container">
-                <h2>Sort</h2>
+                <h2>Sort & Categories</h2>
                 <div>
-                    <button class="sorting-btn" id="sortByNameBtn">Namn</button>
-                    <button class="sorting-btn" id="sortByPriceBtn">Pris</button>
+                    <button class="sorting-btn" id="sortByNameBtn">Name</button>
+                    <button class="sorting-btn" id="sortByPriceBtn">Price</button>
                     <button class="sorting-btn" id="sortByRatingBtn">Rating</button>
                 </div>
                 <div class="category-radios">
@@ -53,73 +53,74 @@
                 </div>
                 <div>
                     <label>
-                        <span>Price Slider</span>
+                        <span>Price Interval</span>
                         <input type="range" name="priceRange" id="priceRange" value="100" min="0" max="100" step="10">
-                        <span id="currentRangeValue">100</span>kr
+                        <span id="currentRangeValue">100</span> kr
                     </label>
                 </div>
             </div>
             <h2>Cookies</h2>
             <div id="productsContainer" class="products-container">
-                <!-- Fyller på från Javascript -->
+                <!-- Fyll från Javascript -->
             </div>
         </section>
         <section class="cart-section">
             <h2>Cart</h2>
             <div id="cartContainer">
-                <!-- Fyller på från Javascript -->
+                <!-- Fyll från Javascript -->
             </div>
         </section>
         <section class="checkout-section">
             <h2>Check Out</h2>
-            <form>
+            <form id="purchase-form">
                 <label>
                     <span>Name</span>
-                    <input type="text" name="name" required class="long-input">
+                    <input type="text" name="name" placeholder="Name" required class="long-input">
                 </label>
                 <label>
                     <span>Lastname</span>
-                    <input type="text" name="lastname" required class="long-input">
+                    <input type="text" name="lastname" placeholder="Lastname" required class="long-input">
                 </label>
                 <label>
                     <span>Adress</span>
-                    <input type="text" name="adress" required class="long-input">
+                    <input type="text" name="adress" placeholder="Street 1B" required class="long-input">
                 </label>
                 <label>
-                    <span>Zip code</span>
-                    <input type="number" name="zipcode" required class="long-input">
+                    <span>Zip Code</span>
+                    <input type="number" name="zipcode" placeholder="123 45"required class="long-input">
                 </label>
                 <label>
                     <span>Town</span>
-                    <input type="text" name="town" required class="long-input">
+                    <input type="text" name="town" placeholder="Town" required class="long-input">
                 </label>
                 <label>
-                    <span>Door Code</span>
-                    <input type="number" name="doorcode" placeholder="Optional 1234" class="long-input">
+                    <span>Door Code <i>Optional</i></span>
+                    <input type="number" name="doorcode" placeholder="1234" class="long-input">
                 </label>
                 <label>
                     <span>Phone</span>
-                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="long-input">
+                    <input type="tel" id="phone" name="phone" placeholder="555-0505000" required class="long-input">
                 </label>
                 <label>
                     <span>Email</span>
-                    <input type="email" name="email" class="long-input">
+                    <input type="email" name="email" placeholder="email@mail.com" required class="long-input">
                 </label>
                 <div class="payment-method">
                     <div class="selector">
                         <label>
                             <input type="radio" name="payment-option" value="card" checked>
-                            <span>Kort</span>
+                            <span>Card</span>
                         </label>
                         <label>
                             <input type="radio" name="payment-option" id="invoiceInput" value="invoice">
-                            <span>Faktura</span>
+                            <span>Invoice</span>
                         </label>
                     </div>
                     <div class="option invoice hidden" id="invoice">
                         <label class="payment-input">
-                            <span>Personnummer</span>
-                            <input type="text" name="personal-id" id="personalID" value="19930721-5914" class="long-input">
+                            <span>Swedish Personal ID</span>
+                            <input type="text" name="personal-id" id="personalID" value="19930721-5914"
+                                placeholder="19930721-5914" class="long-input">
                         </label>
                     </div>
                     <div class="option card" id="card">
@@ -131,8 +132,8 @@
                             <span>Datum</span>
                             <span>
                                 <input type="number" class="small-input" placeholder="YY" id="creditCardYear"
-                                    value="24">/<input type="number" class="small-input" placeholder="MM" id="creditCardMonth"
-                                    value="11">
+                                    value="24">/<input type="number" class="small-input" placeholder="MM"
+                                    id="creditCardMonth" value="11">
                             </span>
                         </label>
                         <label class="payment-input">
@@ -151,12 +152,18 @@
                 </label>
                 <label>
                     <span>Nyhetsbrev</span>
-                    <input type="checkbox" name="checknews">
+                    <input type="checkbox" name="checknews" checked>
                 </label>
                 <input class="reset" id="resetAllBtn" type="reset" value="Reset">
                 <input class="submit" id="purchaseBtn" type="submit" value="Make Purchase" disabled>
             </form>
         </section>
+
+        <section class="confirmation" id="confirmation">
+            <p>Thanks for your purchase! Ingen funktion ännu</p>
+            <button id="close-confirmation">Close</button>
+        </section>
+
         <footer></footer>
     </main>
     <script type="module" src="main.mjs"></script>
