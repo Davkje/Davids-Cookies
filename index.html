@@ -17,6 +17,7 @@
 <body>
     <main>
         <header>
+            <h1>Davids Kakor</h1>
             <div class="cart-container">
                 <span class="material-symbols-outlined cart-icon">shopping_bag</span>
                 <div class="cart-amount-container" id="cartIconAmountContainer">
@@ -24,9 +25,9 @@
                 </div>
             </div>
         </header>
-        <h1>Webshop</h1>
-        <section>
+        <section class="main-section">
             <div class="sorting-container">
+                <h2>Sort</h2>
                 <div>
                     <button class="sorting-btn" id="sortByNameBtn">Namn</button>
                     <button class="sorting-btn" id="sortByPriceBtn">Pris</button>
@@ -50,96 +51,99 @@
                         <input type="radio" name="categoryFilter" id="allRadio" value="All" checked>
                     </label>
                 </div>
-                <label>
-                    <span>Price Slider</span>
-                    <input type="range" name="priceRange" id="priceRange" value="100" min="0" max="100" step="10">
-                    <span id="currentRangeValue">100</span>kr
-                </label>
+                <div>
+                    <label>
+                        <span>Price Slider</span>
+                        <input type="range" name="priceRange" id="priceRange" value="100" min="0" max="100" step="10">
+                        <span id="currentRangeValue">100</span>kr
+                    </label>
+                </div>
             </div>
             <h2>Cookies</h2>
             <div id="productsContainer">
                 <!-- Fyller på från Javascript -->
             </div>
         </section>
-        <section>
+        <section class="cart-section">
             <h2>Cart</h2>
-            <div id="cartContainer"></div>
+            <div id="cartContainer">
+                <!-- Fyller på från Javascript -->
+            </div>
         </section>
         <section class="checkout-section">
             <h2>Check Out</h2>
             <form>
                 <label>
                     <span>Name</span>
-                    <input type="text" name="name" autocomplete="name">
+                    <input type="text" name="name" required class="long-input">
                 </label>
                 <label>
                     <span>Lastname</span>
-                    <input type="text" name="lastname" required>
+                    <input type="text" name="lastname" required class="long-input">
                 </label>
                 <label>
                     <span>Adress</span>
-                    <input type="text" name="adress" required>
+                    <input type="text" name="adress" required class="long-input">
                 </label>
                 <label>
                     <span>Zip code</span>
-                    <input type="number" name="zipcode" required>
+                    <input type="number" name="zipcode" required class="long-input">
                 </label>
                 <label>
                     <span>Town</span>
-                    <input type="text" name="town" required>
+                    <input type="text" name="town" required class="long-input">
                 </label>
                 <label>
-                    <span>Door code</span>
-                    <i>Optional</i>
-                    <input type="number" name="doorcode">
+                    <span>Door Code</span>
+                    <input type="number" name="doorcode" placeholder="Optional 1234" class="long-input">
                 </label>
                 <label>
                     <span>Phone</span>
-                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" autocomplete="tel">
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="long-input">
                 </label>
                 <label>
                     <span>Email</span>
-                    <input type="email" name="email" autocomplete="email">
+                    <input type="email" name="email" class="long-input">
                 </label>
                 <div class="payment-method">
                     <div class="selector">
                         <label>
-                            <input type="radio" name="payment-option" value="invoice">
-                            <span>Faktura</span>
-                        </label>
-                        <label>
                             <input type="radio" name="payment-option" value="card" checked>
                             <span>Kort</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="payment-option" id="invoiceInput" value="invoice">
+                            <span>Faktura</span>
                         </label>
                     </div>
                     <div class="option invoice hidden" id="invoice">
                         <label class="payment-input">
                             <span>Personnummer</span>
-                            <input type="text" name="personal-id" id="personalID" value="19930721-5914">
+                            <input type="text" name="personal-id" id="personalID" value="19930721-5914" class="long-input">
                         </label>
                     </div>
                     <div class="option card" id="card">
                         <label class="payment-input">
                             <span>Kortnummer</span>
-                            <input type="number" id="creditCardNumber" value="5100080000000000">
+                            <input type="number" id="creditCardNumber" value="5100080000000000" class="long-input">
                         </label>
                         <label class="payment-input">
                             <span>Datum</span>
                             <span>
-                                <input type="number" class="small" placeholder="YY" id="creditCardYear"
-                                    value="24">/<input type="number" class="small" placeholder="MM" id="creditCardMonth"
+                                <input type="number" class="small-input" placeholder="YY" id="creditCardYear"
+                                    value="24">/<input type="number" class="small-input" placeholder="MM" id="creditCardMonth"
                                     value="11">
                             </span>
                         </label>
                         <label class="payment-input">
                             <span>CVC</span>
-                            <input type="number" placeholder="123" id="creditCardCvc" value="259">
+                            <input type="number" placeholder="123" id="creditCardCvc" value="259" class="long-input">
                         </label>
                     </div>
                 </div>
                 <label>
                     <span>Discount Code</span>
-                    <input type="text" name="discountcode" id="discountcode">
+                    <input type="text" name="discountcode" id="discountcode" class="long-input">
                 </label>
                 <label>
                     <span>Accept perssonal info</span>

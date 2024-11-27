@@ -45,6 +45,9 @@ const inputs = [
 
 // - Payment Opitions
 const paymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+
+const invoiceInput = document.querySelector('#invoiceInput');
+
 const invoiceOption = document.querySelector('#invoice');
 const cardOption = document.querySelector('#card');
 // - Default Option
@@ -117,7 +120,6 @@ function getRatingHtml(rating) {
     }
     return html;
 }
-
 
 // ---------------- PRINT AMOUNT ON CART ICON
 
@@ -231,8 +233,8 @@ function printCartContainer() {
                 msg += '<p>Mängdrabbatt: 10 %, 10 av samma!</p>'
             }
             const adjustedProductPrice = productPrice * priceIncrease;
-
             sum += product.amount * adjustedProductPrice;
+
             cartContainer.innerHTML += `
                 <article>
                     <span>${product.name}</span> | <span>${product.amount}</span> | <span>${product.amount * adjustedProductPrice} kr</span>
@@ -240,6 +242,13 @@ function printCartContainer() {
             `;
         }
     });
+
+    if (orderedProductAmount === 0) {
+        cartContainer.innerHTML = '<p>Your cart is empty</p>'
+        // Enable button when cart is empty
+        document.querySelector('#invoiceInput').enabled = true;
+        return;
+    }
 
     // Om summan är 0 visas ingen summa
     if (sum <= 0) {
@@ -260,6 +269,11 @@ function printCartContainer() {
         cartContainer.innerHTML += '<p>Shipping: 0 kr - Free Shipping</p>';
     } else {
         cartContainer.innerHTML += `<p>Shipping: ${Math.round(25 + (0.1 * sum))}kr</p>`;
+    }
+
+    // diasble or aneable invoice Input based on sum
+    if (invoiceInput) {
+        invoiceInput.disabled = sum >= 800;
     }
 }
 

@@ -16,10 +16,6 @@ h1, h2, h3, h4, h5, h6 {
     color: $primary-blue;
 }
 
-h1 {
-    margin-top: 5rem;
-}
-
 img {
     max-width: 250px;
     height: auto;
@@ -36,7 +32,12 @@ header {
     top: 0;
     height: 5rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+    h1 {
+        color: white;
+        text-transform: uppercase;
+    }
     .cart-container {
         position: fixed;
         top: 3rem;
@@ -89,6 +90,10 @@ section {
     align-items: center;
 }
 
+.main-section {
+    margin-top: 7.5rem;
+}
+
 .sorting-container {
     background-color: rgba(0, 0, 0, 0.13);
     padding: 10px;
@@ -98,16 +103,18 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    div, label {
+    div {
         margin: 4px 0 4px 0;
         display: flex;
+        .sorting-btn {
+            height: 30px;
+            width: 80px;
+            margin: 0 10px 0 10px;
+        }
+        label {
+            margin: 0 10px 0 10px;
+        }
     }
-}
-
-.sorting-btn {
-    height: 30px;
-    width: 80px;
-    margin: 0 10px 0 10px;
 }
 
 .product {
@@ -154,6 +161,14 @@ section {
     }
 }
 
+.cart-section {
+    background-color: rgba(0, 0, 0, 0.07);
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    margin-bottom: 10px;
+}
+
 .checkout-section {
     background-color: rgba(0, 0, 0, 0.07);
     padding: 20px;
@@ -174,6 +189,9 @@ form {
         display: flex;
         justify-content: space-between;
     }
+    .long-input {
+        width: 165px;
+    }
     .payment-method {
         grid-template-columns: repeat(4, 1fr);
         display: grid;
@@ -193,7 +211,7 @@ form {
         .option {
             grid-column: span 4;
         }
-        .small {
+        .small-input {
             width: 50px;
         }
     }
