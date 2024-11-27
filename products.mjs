@@ -41,6 +41,20 @@ const product = [
             alt: 'Chocolate chip cookie'
         },
     },
+    {
+        id: 3,
+        name: 'Butter Love',
+        price: 35,
+        rating: 3.5,
+        amount: 0,
+        category: 'Salty',
+        img: {
+            url: 'assets/images/cookie.jpg',
+            width: 552,
+            height: 552,
+            alt: 'Chocolate chip cookie'
+        },
+    },
 ];
 
 export default product;

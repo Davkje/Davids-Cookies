@@ -1,0 +1,12 @@
+body {
+    background-color: rgb(245, 234, 220);
+}
+
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 32px;
+    .product {
+        grid-column: span 4;
+    }
+}

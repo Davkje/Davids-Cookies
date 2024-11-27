@@ -29,8 +29,8 @@ const sortByRatingBtn = document.querySelector('#sortByRatingBtn');
 const categoryFilterRadios = document.querySelectorAll('[name="categoryFilter"]');
 
 // -  Price Range
-const priceRangeSlider = document.querySelector('#priceRange')
-const currentRangeValue = document.querySelector('#currentRangeValue')
+const priceRangeSlider = document.querySelector('#priceRange');
+const currentRangeValue = document.querySelector('#currentRangeValue');
 
 // ---------------- Form Variables -----------------
 
@@ -128,11 +128,11 @@ function printCartIconAmount() {
 
     //  Lokala variabler
     let orderedProductAmount = 0;
-
+    
+    // Kolla varje ordered produkts amount
     product.forEach(product => {
         orderedProductAmount += product.amount;
     });
-    console.log(orderedProductAmount);
     cartIconAmountContainer.innerHTML += `
     <span class="cart-amount">${orderedProductAmount}</span>
     `;
@@ -211,8 +211,8 @@ function printProducts() {
     printCartContainer(); // Print cart to update price and amount etc
 }
 
-// ---------------- PRINT & UPDATE CART -------------------
-// -------------------------------------------------------- 
+// ---------------- PRINT & UPDATE CART & COUNT SUM / DISABLE INVOICE ------------
+// -------------------------------------------------------------------------------
 function printCartContainer() {
     cartContainer.innerHTML = ''; // Rensa
 

@@ -1,0 +1,12 @@
+body {
+    background-color: bisque;
+}
+
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 32px;
+    .product {
+        grid-column: span 3;
+    }
+}
