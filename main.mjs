@@ -72,7 +72,6 @@ let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
 let filteredProduct = product;
 let filteredProductInPriceRange = product;
 
-
 // ---------------- EVENT LISTENERS  --------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
@@ -125,7 +124,7 @@ function printCartIconAmount() {
 
     //  Lokala variabler
     let orderedProductAmount = 0;
-    
+
     // Kolla varje ordered produkts amount
     product.forEach(product => {
         orderedProductAmount += product.amount;
@@ -141,13 +140,13 @@ function printCartIconAmount() {
     // Gör osynlig om siffran är 0
     if (orderedProductAmount <= 0) {
         cartIconAmountContainer.classList.add('invisible');
-    }  
+    }
 }
 
 // ---------------- FILTRERA PRICE RANGE w.SLIDER
 function changePriceRange() {
     const currentPrice = priceRangeSlider.value;
-    currentRangeValue.innerHTML = currentPrice;
+    currentRangeValue.innerHTML = `${currentPrice} kr`;
 
     filteredProductInPriceRange = filteredProduct.filter((product) => product.price <= currentPrice);
 
@@ -210,6 +209,7 @@ function printProducts() {
 // -------------------------------------------------------------------------------
 function printCartContainer() {
     cartContainer.innerHTML = ''; // Rensa
+    const today = new Date(); // Check for date every time we run function
 
     // Lokala Variabler
     let sum = 0; // summan är 0 o inga produkter valts
@@ -225,21 +225,32 @@ function printCartContainer() {
             let productPrice = product.price;
             if (product.amount >= 10) {
                 productPrice *= 0.9;
-                msg += '<p>Mängdrabbatt: 10 %, 10 av samma!</p>'
+                msg += `
+                    <div class="cart-row">
+                        <span class="cart-row-item">10 of the same</span>
+                        <span class="cart-row-item span-last"> 10% Discount</span>
+                    </div>
+                `;
             }
             const adjustedProductPrice = productPrice * priceIncrease;
             sum += product.amount * adjustedProductPrice;
 
             cartContainer.innerHTML += `
-                <article>
-                    <span>${product.name}</span> | <span>${product.amount}</span> | <span>${product.amount * adjustedProductPrice} kr</span>
-                </article>
+                <div class="cart-row">
+                    <span class="cart-row-item">${product.name}</span>
+                    <span class="cart-row-item">${product.amount}</span>
+                    <span class="cart-row-item">${product.amount * adjustedProductPrice} kr</span>
+                </div>
             `;
         }
     });
 
     if (orderedProductAmount === 0) {
-        cartContainer.innerHTML = '<p>Your cart is empty</p>'
+        cartContainer.innerHTML = `
+            <div class="cart-row">
+                <span class="cart-row-item span-full">Your cart is empty</span>
+            </div>
+        `;
         // Enable button when cart is empty
         document.querySelector('#invoiceInput').enabled = true;
         return;
@@ -249,22 +260,45 @@ function printCartContainer() {
     if (sum <= 0) {
         return;
     }
+
     // Rabatt på Måndagar
     if (today.getDay() === 1 && today.getHours() < 10) { // Söndag är siffra 0, måndag blir därför siffra 1!
         sum *= 0.9; // ge 10 % rabatt
-        msg += '<p>Måndagsrabatt: 10 % på hela beställningen</p>'
+        msg += `
+            <div class="cart-row">
+                <span class="cart-row-item">Monday Discount</span>
+                <span class="cart-row-item span-last">10% Discount on you purchase</span>
+            </div>
+        `;
     }
 
     // HTML CART
-    cartContainer.innerHTML += `<p>Total sum: ${sum} kr</p>`;
-    cartContainer.innerHTML += `<div>${msg}</div>`;
+
+    cartContainer.innerHTML += `${msg}`;
 
     // SHIPPING - över 15 är gratis, annars 25kr + 10%
     if (orderedProductAmount > 15) {
-        cartContainer.innerHTML += '<p>Shipping: 0 kr - Free Shipping</p>';
+        cartContainer.innerHTML += `
+            <div class="cart-row">
+                <span class="cart-row-item">Shipping:</span>
+                <span class="cart-row-item span-last">Free Shipping - 0 kr</span>
+            </div>
+        `;
     } else {
-        cartContainer.innerHTML += `<p>Shipping: ${Math.round(25 + (0.1 * sum))}kr</p>`;
+        cartContainer.innerHTML += `
+            <div class="cart-row">
+                <span class="cart-row-item">Shipping:</span>
+                <span class="cart-row-item span-last"> ${Math.round(25 + (0.1 * sum))} kr</span>
+            </div>
+        `;
     }
+
+    cartContainer.innerHTML += `
+        <div class="cart-row">
+            <span class="cart-row-item">Total:</span>
+            <span class="cart-row-item span-last">${sum} kr</span>
+        </div>
+    `;
 
     // diasble or aneable invoice Input based on sum
     if (invoiceInput) {

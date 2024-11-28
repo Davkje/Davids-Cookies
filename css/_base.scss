@@ -108,6 +108,9 @@ section {
         }
         label {
             margin: 0 10px 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     }
 }
@@ -167,7 +170,32 @@ section {
     border-radius: 10px;
     width: 600px;
     margin-bottom: 10px;
+    .cart-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat (1, 1fr);
+        .cart-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: solid rgba(0, 0, 0, 0.138) 2px;
+            margin-bottom: 1rem;
+            .cart-row-item {
+                display: flex;
+                justify-content: center;
+                padding: 4px;
+            }
+        }
+    }
 }
+
+.span-last {
+    grid-column: 3 / 4;
+}
+
+.span-full {
+    grid-column: span 3;
+}
+
 
 .checkout-section {
     background-color: rgba(0, 0, 0, 0.07);
@@ -245,7 +273,7 @@ footer {
     width: 100%;
 }
 
-// TEST DEBUGG
+// TEST & DEBUGG
 
 .test {
     background-color: red;
