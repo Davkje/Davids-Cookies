@@ -50,6 +50,7 @@ const invoiceInput = document.querySelector('#invoiceInput');
 
 const invoiceOption = document.querySelector('#invoice');
 const cardOption = document.querySelector('#card');
+
 // - Default Option
 let selectedPaymentOption = 'card';
 
@@ -62,11 +63,11 @@ const orderBtn = document.querySelector('#purchaseBtn');
 // ------------------------------------------------------------------------------------------------------------
 
 const today = new Date();
-const isFriday = today.getDay() === 6; // true eller false, är det Fredag
-const isMonday = today.getDay() === 1; // Måndag
+const isFriday = today.getDay() === 6; // true or false, is it Fredag
+const isMonday = today.getDay() === 1; 
 const currentHour = today.getHours();
 
-let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15);
+let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15); // Timer 15 min, if customer is to slow
 
 // -------- PRODUCT FILTERING
 let filteredProduct = product;
@@ -103,16 +104,19 @@ resetAllBtn.addEventListener('click', resetAllProducts);
 // ------------------------------------------------------------------------------------------------------------
 
 
-// ---------------- MAKE RATING NR STARS
+// ---------------- MAKE NUMBER RATING INTO STARS
 function getRatingHtml(rating) {
-    // If has half star rating; detect by checking for dot/decimal
-    const isHalf = String(rating).indexOf('.');
+    // Separate integer and fractional parts
+    const fullStars = Math.floor(rating); // Number of full stars
+    const hasHalfStar = rating % 1 !== 0; // Check if there's a decimal part
 
     let html = '';
-    for (let i = 0; i < rating; i++) {
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
         html += `<span class="material-symbols-outlined star-icon">star</span>`;
     }
-    if (isHalf !== -1) {
+    // Add half star if applicable
+    if (hasHalfStar) {
         html += `<span class="material-symbols-outlined star-icon">star_half</span>`;
     }
     return html;
@@ -122,10 +126,10 @@ function getRatingHtml(rating) {
 function printCartIconAmount() {
     cartIconAmountContainer.innerHTML = '';
 
-    //  Lokala variabler
+    //  Local variabel
     let orderedProductAmount = 0;
 
-    // Kolla varje ordered produkts amount
+    // Check every ordered product amount
     product.forEach(product => {
         orderedProductAmount += product.amount;
     });
@@ -133,17 +137,17 @@ function printCartIconAmount() {
     <span class="cart-amount">${orderedProductAmount}</span>
     `;
 
-    // gör synlig om siffran är större än 0
+    // Make visible if nr is bigger than 0
     if (orderedProductAmount > 0) {
         cartIconAmountContainer.classList.remove('invisible');
     }
-    // Gör osynlig om siffran är 0
+    // Make invisible if nr is 0
     if (orderedProductAmount <= 0) {
         cartIconAmountContainer.classList.add('invisible');
     }
 }
 
-// ---------------- FILTRERA PRICE RANGE w.SLIDER
+// ---------------- FILTER PRICE RANGE w.SLIDER
 function changePriceRange() {
     const currentPrice = priceRangeSlider.value;
     currentRangeValue.innerHTML = `${currentPrice} kr`;
@@ -168,12 +172,12 @@ function updateCategoryFilter(e) {
 // ---------------- PRINT PRODUCTS IN HTML ----------------
 // --------------------------------------------------------                         
 function printProducts() {
-    // RENSA
+    // CLEAR
     productsContainer.innerHTML = '';
 
     let priceIncrease = getPriceMultiplier();
 
-    // PRINT HTML - För varje product - printa en articel med innehåll i den tomma div'en 
+    // PRINT HTML - For each product (loop) - print article with product in empty div
     filteredProductInPriceRange.forEach(product => {
         productsContainer.innerHTML += `
             <article class="product">
@@ -208,13 +212,13 @@ function printProducts() {
 // ---------------- PRINT & UPDATE CART & COUNT SUM / DISABLE INVOICE ------------
 // -------------------------------------------------------------------------------
 function printCartContainer() {
-    cartContainer.innerHTML = ''; // Rensa
+    cartContainer.innerHTML = ''; // CLEAR
     const today = new Date(); // Check for date every time we run function
 
-    // Lokala Variabler
-    let sum = 0; // summan är 0 o inga produkter valts
-    let orderedProductAmount = 0; // Antal products i korgen!
-    let msg = ''; // Vi har inget message från början
+    // Local Variables
+    let sum = 0; // sum is when no products have been choosen
+    let orderedProductAmount = 0; // Amount of products in the cart
+    let msg = ''; // No message to start with
     let priceIncrease = getPriceMultiplier();
 
     // Cart
@@ -256,14 +260,14 @@ function printCartContainer() {
         return;
     }
 
-    // Om summan är 0 visas ingen summa
+    // If sum is 0 Show no sum
     if (sum <= 0) {
         return;
     }
 
-    // Rabatt på Måndagar
-    if (today.getDay() === 1 && today.getHours() < 10) { // Söndag är siffra 0, måndag blir därför siffra 1!
-        sum *= 0.9; // ge 10 % rabatt
+    // Discount on monday mornings before 10:00
+    if (today.getDay() === 1 && today.getHours() < 10) { // Sunday is nr 0, so therefore monday is day 1!
+        sum *= 0.9; // Give 10 % Discount
         msg += `
             <div class="cart-row">
                 <span class="cart-row-item">Monday Discount</span>
@@ -276,7 +280,7 @@ function printCartContainer() {
 
     cartContainer.innerHTML += `${msg}`;
 
-    // SHIPPING - över 15 är gratis, annars 25kr + 10%
+    // SHIPPING - over 15 products is free, otherwise 25kr + 10%
     if (orderedProductAmount > 15) {
         cartContainer.innerHTML += `
             <div class="cart-row">
@@ -300,7 +304,7 @@ function printCartContainer() {
         </div>
     `;
 
-    // diasble or aneable invoice Input based on sum
+    // Diasble or aneable invoice Input based on sum
     if (invoiceInput) {
         invoiceInput.disabled = sum >= 800;
     }
@@ -309,44 +313,44 @@ function printCartContainer() {
 // --- INCREASE / DECREASE PRODUCT AMOUNT & UPDATES CART ICON AMOUNT
 function increaseProductCount(e) {
     const productId = Number(e.target.id.replace('increase-', ''));
-    // id på knappen
+    // ID of specific buton
     const clickedButtonId = e.target.id;
 
-    // Leta rätt på produkten i arrayen som har det id:t
+    // Find product in arrayen with the ID
     const foundProductIndex = product.findIndex(product => product.id === productId);
-    // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
+    // If the product doesnt exist, write an error in the consolen and exit function with "return"
     if (foundProductIndex === -1) {
-        console.error('Det finns ingen sådan produkt i produktlistan! Kolla att id:t är rätt.');
+        console.error('No product in the list! Check id!');
         return;
     }
-    product[foundProductIndex].amount += 1; // öka dess amount med +1
+    product[foundProductIndex].amount += 1; // Increase amount w. +1
     printProducts();
     printCartIconAmount();
-    // Focus på knappen efter print
+    // Focus on button AFTER efter print
     document.querySelector(`#${clickedButtonId}`).focus();
 
 }
 
 function decreaseProductCount(e) {
     const productId = Number(e.target.id.replace('decrease-', ''));
-    // id på knappen
+    // ID of specific buton
     const clickedButtonId = e.target.id;
 
-    // Leta rätt på produkten i arrayen som har det id:t
+    // Find product in arrayen with the ID
     const foundProductIndex = product.findIndex(product => product.id === productId);
-    // Om produkten inte finns, skriv ut felmeddelande i consolen och avbryt att resten av koden körs med "return"
+    // If the product doesnt exist, write an error in the consolen and exit function with "return"
     if (foundProductIndex === -1) {
-        console.error('Det finns ingen sådan produkt i produktlistan! Kolla att id:t är rätt.');
+        console.error('No product in the list! Check id!');
         return;
     }
-    if (product[foundProductIndex].amount <= 0) { //  Om siffran är 0, gör inget!
+    if (product[foundProductIndex].amount <= 0) { //  If the amount is 0, do nothing!
         product[foundProductIndex].amount = 0;
     } else {
-        product[foundProductIndex].amount -= 1; // minska dess amount med -1
+        product[foundProductIndex].amount -= 1; // Decrease amount by -1
     }
     printProducts();
     printCartIconAmount();
-    // Focus på knappen efter print
+    // Focus on button AFTER print!
     document.querySelector(`#${clickedButtonId}`).focus();
 }
 
