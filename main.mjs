@@ -7,6 +7,8 @@ import product from "./products.mjs";
 // ----------------- REGEX -----------------------------
 const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
 const creditCardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/); // MasterCard
+const phoneRegEx = /^\d{3}-\d{7,10}$/; // "555-0505000"
+const zipCodeRegEx = /^\d{5}$/; // "12345"
 
 // ---------------- HTML ELEMENTS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -34,14 +36,32 @@ const currentRangeValue = document.querySelector('#currentRangeValue');
 
 // ---------------- Form Variables -----------------
 
+// - Form
+const purchaseForm = document.querySelector('#purchaseForm');
+
 // - Inputs
-const inputs = [
-    document.querySelector('#creditCardNumber'),
-    document.querySelector('#creditCardYear'),
-    document.querySelector('#creditCardMonth'),
-    document.querySelector('#creditCardCvc'),
-    document.querySelector('#personalID'),
-];
+const nameInput = document.querySelector('#nameInput');
+const lastnameInput = document.querySelector('#lastnameInput');
+const addressInput = document.querySelector('#addressInput');
+const zipCodeInput = document.querySelector('#zipCodeInput');
+const townInput = document.querySelector('#townInput');
+const phoneInput = document.querySelector('#phoneInput');
+const emailInput = document.querySelector('#emailInput');
+const termsCheckbox = document.querySelector('#termsCheckbox');
+const creditCardNumber = document.querySelector('#creditCardNumber');
+const creditCardYear = document.querySelector('#creditCardYear');
+const creditCardMonth = document.querySelector('#creditCardMonth');
+const creditCardCvc = document.querySelector('#creditCardCvc');
+const personalId = document.getElementById('personalID');
+
+// - Inputs Payment ID's
+// const inputs = [
+//     document.querySelector('#creditCardNumber'),
+//     document.querySelector('#creditCardYear'),
+//     document.querySelector('#creditCardMonth'),
+//     document.querySelector('#creditCardCvc'),
+//     document.querySelector('#personalID'),
+// ];
 
 // - Payment Opitions
 const paymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
@@ -88,14 +108,33 @@ sortByRatingBtn.addEventListener('click', sortByRating);
 priceRangeSlider.addEventListener('input', changePriceRange);
 
 // - Form Events
+// Add event listeners to all fields
+[
+    nameInput,
+    lastnameInput,
+    addressInput,
+    zipCodeInput,
+    townInput,
+    phoneInput,
+    emailInput,
+    termsCheckbox,
+    creditCardNumber,
+    creditCardYear,
+    creditCardMonth,
+    creditCardCvc, 
+    personalId,
+].forEach(input => {
+    input.addEventListener('input', activateOrderButton);
+});
+
 paymentMethodRadios.forEach(radioBtn => {
     radioBtn.addEventListener('change', switchPaymentMethod);
 });
 
-inputs.forEach(inputs => {
-    inputs.addEventListener('change', activateOrderButton);
-    inputs.addEventListener('focusout', activateOrderButton);
-});
+// inputs.forEach(inputs => {
+//     inputs.addEventListener('change', activateOrderButton);
+//     inputs.addEventListener('focusout', activateOrderButton);
+// });
 
 // - Reset Button
 resetAllBtn.addEventListener('click', resetAllProducts);
@@ -373,8 +412,7 @@ function sortByName() {
 // ----- FORM FUNCTIONS -----
 // --------------------------
 
-
-// - PAYMENT OPTION FUNC  - Card/Invoice Hidden/Visible &  Selected Payment
+// - PAYMENT OPTION FUNC  - Card/Invoice Hidden/Visible & Selected Payment
 function switchPaymentMethod(e) {
     invoiceOption.classList.toggle('hidden');
     cardOption.classList.toggle('hidden');
@@ -382,6 +420,27 @@ function switchPaymentMethod(e) {
 }
 
 // ----VALIDATION
+
+function isFormValid() {
+    // Check required text fields
+    const isTextFieldsValid =
+        nameInput.value.trim() &&
+        lastnameInput.value.trim() &&
+        addressInput.value.trim() &&
+        zipCodeRegEx.test(zipCodeInput.value) &&
+        townInput.value.trim();
+
+    // Validate email and phone
+    const isContactFieldsValid =
+        phoneRegEx.test(phoneInput.value) &&
+        emailInput.checkValidity(); // email validation
+
+    // Validate terms checkbox
+    const isTermsAccepted = termsCheckbox.checked;
+
+    return isTextFieldsValid && isContactFieldsValid && isTermsAccepted;
+}
+
 function isPersonalIdNumberValid() {
     return personalIdRegEx.exec(personalId.value);
 }
@@ -421,6 +480,11 @@ function activateOrderButton() {
             console.warn('CVC not valid.');
             return;
         }
+        // Validated Form
+        if (!isFormValid()) {
+            console.warn('Form not valid')
+            return;
+        }
     }
 
     orderBtn.removeAttribute('disabled');
@@ -453,4 +517,3 @@ printCartIconAmount();
 
 // -- PRINT PAGE
 printProducts();
-
