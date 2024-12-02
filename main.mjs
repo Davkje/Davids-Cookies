@@ -36,9 +36,6 @@ const currentRangeValue = document.querySelector('#currentRangeValue');
 
 // ---------------- Form Variables -----------------
 
-// - Form
-const purchaseForm = document.querySelector('#purchaseForm');
-
 // - Inputs
 const nameInput = document.querySelector('#nameInput');
 const lastnameInput = document.querySelector('#lastnameInput');
@@ -53,15 +50,6 @@ const creditCardYear = document.querySelector('#creditCardYear');
 const creditCardMonth = document.querySelector('#creditCardMonth');
 const creditCardCvc = document.querySelector('#creditCardCvc');
 const personalId = document.getElementById('personalID');
-
-// - Inputs Payment ID's
-// const inputs = [
-//     document.querySelector('#creditCardNumber'),
-//     document.querySelector('#creditCardYear'),
-//     document.querySelector('#creditCardMonth'),
-//     document.querySelector('#creditCardCvc'),
-//     document.querySelector('#personalID'),
-// ];
 
 // - Payment Opitions
 const paymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
@@ -78,6 +66,10 @@ let selectedPaymentOption = 'card';
 const resetAllBtn = document.querySelector('#resetAllBtn');
 // - Order Button
 const orderBtn = document.querySelector('#purchaseBtn');
+
+
+const confirmationSection = document.querySelector('#confirmationSection');
+
 
 // ---------------- VARIABLES ---------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -125,19 +117,18 @@ priceRangeSlider.addEventListener('input', changePriceRange);
     personalId,
 ].forEach(input => {
     input.addEventListener('input', activateOrderButton);
+    input.addEventListener('change', activateOrderButton);
+    input.addEventListener('focusout', activateOrderButton);
 });
 
 paymentMethodRadios.forEach(radioBtn => {
     radioBtn.addEventListener('change', switchPaymentMethod);
 });
 
-// inputs.forEach(inputs => {
-//     inputs.addEventListener('change', activateOrderButton);
-//     inputs.addEventListener('focusout', activateOrderButton);
-// });
-
 // - Reset Button
 resetAllBtn.addEventListener('click', resetAllProducts);
+
+orderBtn.addEventListener('click', makePurchase);
 
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -496,6 +487,15 @@ function resetAllProducts() {
     product.forEach(prod => prod.amount = 0);
     printProducts();
     printCartIconAmount();
+}
+
+// --- Purchase Confirmation and Reset
+function makePurchase() {
+    event.preventDefault();
+    confirmationSection.classList.remove('hidden');
+    resetAllProducts();
+
+    // TODO! RESET FORM? / Change prevent default?
 }
 
 // --- Message if To Slow
