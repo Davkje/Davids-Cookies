@@ -74,36 +74,60 @@
             <h2>Check Out</h2>
             <form id="purchaseForm">
                 <label>
-                    <span>Name</span>
+                    <div>
+                        <span>Name</span>
+                        <p id="nameError" class="form-reminder">First name required</p>
+                    </div>
                     <input id="nameInput" type="text" name="name" placeholder="Name" required class="long-input">
                 </label>
                 <label>
-                    <span>Lastname</span>
+                    <div>
+                        <span>Lastname</span>
+                        <p id="lastnameError" class="form-reminder">Last name required</p>
+                    </div>
                     <input id="lastnameInput" type="text" name="lastname" placeholder="Lastname" value="lastname" required class="long-input">
                 </label>
                 <label>
-                    <span>Address</span>
+                    <div>
+                        <span>Address</span>
+                        <p id="addressError" class="form-reminder">Address required</p>
+                    </div>
                     <input id="addressInput" type="text" name="address" placeholder="Street 1B" value="street 1" required class="long-input">
                 </label>
                 <label>
-                    <span>Zip Code</span>
+                    <div>
+                        <span>Zip Code</span>
+                        <p id="zipCodeError" class="form-reminder">Required Ex: 12345</p>
+                    </div>
                     <input id="zipCodeInput" type="number" name="zipcode" placeholder="12345" value="12345" required class="long-input">
                 </label>
                 <label>
-                    <span>Town</span>
+                    <div>
+                        <span>Town</span>
+                        <p id="townError" class="form-reminder">Town required</p>
+                    </div>
                     <input id="townInput" type="text" name="town" placeholder="Town" value="Town" required class="long-input">
                 </label>
                 <label>
-                    <span>Door Code <i>Optional</i></span>
+                    <div>
+                        <span>Door Code</span>
+                        <p class="form-reminder">Optional</p>
+                    </div>
                     <input type="number" name="doorcode" placeholder="1234" class="long-input">
                 </label>
                 <label>
-                    <span>Phone</span>
-                    <input id="phoneInput" type="tel" id="phone" name="phone" placeholder="555-0505000" value="555-0505000" required class="long-input">
+                    <div>
+                        <span>Phone</span>
+                        <p id="phoneError" class="form-reminder">Required Ex: 555-0505000</p>
+                    </div>
+                    <input id="phoneInput" type="tel" id="phone" name="phone" placeholder="555-0505000" required class="long-input">
                 </label>
                 <label>
-                    <span>Email</span>
-                    <input id="emailInput" type="email" name="email" placeholder="email@mail.com" value="email@mail.com" required class="long-input">
+                    <div>
+                        <span>Email</span>
+                        <p id="emailError" class="form-reminder">Required Ex: mail@mail.com</p>
+                    </div>
+                    <input id="emailInput" type="email" name="email" placeholder="mail@mail.com" value="" required class="long-input">
                 </label>
                 <div class="payment-method">
                     <div class="selector">
@@ -147,11 +171,14 @@
                     <input type="text" name="discountcode" id="discountcode" class="long-input">
                 </label>
                 <label>
-                    <span>Approval of processing of personal data</span>
+                    <div>
+                        <span>Approval of processing of personal data</span>
+                        <p id="termsError" class="form-reminder">Required</p>
+                    </div>
                     <input id="termsCheckbox" type="checkbox" name="checkterms" required>
                 </label>
                 <label>
-                    <span>Apply for our newsletter</span>
+                        <span>Apply for our newsletter</span>
                     <input type="checkbox" name="checknews" checked>
                 </label>
                 <input class="reset" id="resetAllBtn" type="reset" value="Reset">

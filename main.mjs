@@ -7,8 +7,10 @@ import product from "./products.mjs";
 // ----------------- REGEX -----------------------------
 const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
 const creditCardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/); // MasterCard
-const phoneRegEx = /^\d{3}-\d{7,10}$/; // "555-0505000"
-const zipCodeRegEx = /^\d{5}$/; // "12345"
+const phoneRegEx = new RegExp(/^\d{3}-\d{7,10}$/); // "555-0505000"
+// const zipCodeRegEx = new RegExp(/^\d{5}$/); // "12345"
+const zipCodeRegEx = /^\d{5}$/; // Example: 5-digit zip code
+const emailRegEx = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 
 // ---------------- HTML ELEMENTS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -52,6 +54,16 @@ const creditCardYear = document.querySelector('#creditCardYear');
 const creditCardMonth = document.querySelector('#creditCardMonth');
 const creditCardCvc = document.querySelector('#creditCardCvc');
 const personalId = document.getElementById('personalID');
+
+// Input Errors
+const nameError = document.querySelector('#nameError');
+const lastnameError = document.querySelector('#lastnameError');
+const addressError = document.querySelector('#addressError');
+const zipCodeError = document.querySelector('#zipCodeError');
+const townError = document.querySelector('#townError');
+const phoneError = document.querySelector('#phoneError');
+const termsError = document.querySelector('#termsError');
+const emailError = document.querySelector('#emailError');
 
 // - Payment Opitions
 const paymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
@@ -132,6 +144,18 @@ resetAllBtn.addEventListener('click', resetAllProducts);
 orderBtn.addEventListener('click', makePurchase);
 
 closeConfirmationBtn.addEventListener('click', closeConfirmation);
+
+
+// Form Input Reminder Events
+
+nameInput.addEventListener('input', () => isNameValid(nameInput.value));
+lastnameInput.addEventListener('input', () => isLastnameValid(lastnameInput.value));
+addressInput.addEventListener('input', () => isAddressValid(addressInput.value));
+zipCodeInput.addEventListener('input', () => isZipCodeValid(zipCodeInput.value, zipCodeRegEx));
+townInput.addEventListener('input', () => isTownValid(townInput.value));
+phoneInput.addEventListener('input', () => isPhoneValid(phoneInput.value, phoneRegEx));
+emailInput.addEventListener('input', () => isEmailValid(emailInput.value, emailRegEx));
+termsCheckbox.addEventListener('input', () => areTermsAccepted(termsCheckbox));
 
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -415,24 +439,90 @@ function switchPaymentMethod(e) {
 
 // ----VALIDATION
 
+function isNameValid(name) {
+    if (name.trim() === '') {
+        nameError.textContent = 'First name required';
+        return false;
+    }
+    nameError.textContent = '';
+    return true;
+}
+
+function isLastnameValid(lastname) {
+    if (lastname.trim() === '') {
+        lastnameError.textContent = 'Last name required';
+        return false;
+    }
+    lastnameError.textContent = '';
+    return true;
+}
+
+function isAddressValid(address) {
+    if (address.trim() === '') {
+        addressError.textContent = 'Address required';
+        return false;
+    }
+    addressError.textContent = '';
+    return true;
+}
+
+function isZipCodeValid(zipCode, zipCodeRegEx) {
+    if (!zipCodeRegEx.test(zipCode)) {
+        zipCodeError.textContent = 'Required Ex: 12345';
+        return false;
+    }
+    zipCodeError.textContent = '';
+    return true;
+}
+
+function isTownValid(town) {
+    if (town.trim() === '') {
+        townError.textContent = 'Town required';
+        return false;
+    }
+    townError.textContent = '';
+    return true;
+}
+
+function isPhoneValid(phone, phoneRegEx) {
+    if (!phoneRegEx.test(phone)) {
+        phoneError.textContent = 'Required Ex: 555-0505000';
+        return false;
+    }
+    phoneError.textContent = '';
+    return true;
+}
+
+function isEmailValid(email, emailRegEx) {
+    if (!emailRegEx.test(email)) {
+        emailError.textContent = 'Required Ex: mail@mail.com';
+        return false;
+    }
+    emailError.textContent = ''; 
+    return true;
+}
+
+function areTermsAccepted(termsCheckbox) {
+    if (!termsCheckbox.checked) {
+        termsError.textContent = 'Required';
+        return false;
+    }
+    termsError.textContent = '';
+    return true;
+}
+
 function isFormValid() {
-    // Check required text fields
-    const isTextFieldsValid =
-        nameInput.value.trim() &&
-        lastnameInput.value.trim() &&
-        addressInput.value.trim() &&
-        zipCodeRegEx.test(zipCodeInput.value) &&
-        townInput.value.trim();
+    const nameValid = isNameValid(nameInput.value);
+    const lastnameValid = isLastnameValid(lastnameInput.value);
+    const emailValid = isEmailValid(emailInput.value, emailRegEx);
+    const phoneValid = isPhoneValid(phoneInput.value, phoneRegEx);
+    const addressValid = isAddressValid(addressInput.value);
+    const zipCodeValid = isZipCodeValid(zipCodeInput.value, zipCodeRegEx);
+    const townValid = isTownValid(townInput.value);
+    const termsAccepted = areTermsAccepted(termsCheckbox);
 
-    // Validate email and phone
-    const isContactFieldsValid =
-        phoneRegEx.test(phoneInput.value) &&
-        emailInput.checkValidity(); // email validation
-
-    // Validate terms checkbox
-    const isTermsAccepted = termsCheckbox.checked;
-
-    return isTextFieldsValid && isContactFieldsValid && isTermsAccepted;
+    // Return overall form validity
+    return nameValid && lastnameValid && emailValid && phoneValid && addressValid && zipCodeValid && townValid && termsAccepted;
 }
 
 function isPersonalIdNumberValid() {
@@ -441,7 +531,13 @@ function isPersonalIdNumberValid() {
 
 // ---- ACTIVATE ORDER BUTTON
 function activateOrderButton() {
-    orderBtn.setAttribute('disabled', '');
+    orderBtn.setAttribute('disabled', 'true');
+
+    // Validated Form
+    if (!isFormValid()) {
+        console.warn('Form not valid');
+        return;
+    }
 
     if (selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
         return;
@@ -472,11 +568,6 @@ function activateOrderButton() {
         // Check card CVC
         if (creditCardCvc.value.length !== 3) {
             console.warn('CVC not valid.');
-            return;
-        }
-        // Validated Form
-        if (!isFormValid()) {
-            console.warn('Form not valid')
             return;
         }
     }

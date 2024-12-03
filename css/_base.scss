@@ -216,9 +216,11 @@ form {
         grid-column: span 4;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
     .long-input {
         width: 165px;
+        height: 30px;
     }
     .payment-method {
         grid-template-columns: repeat(4, 1fr);
@@ -254,6 +256,10 @@ form {
         width: 200px;
         height: 50px;
     }
+}
+
+.form-reminder {
+    font-size: small;
 }
 
 .payment-input {
