@@ -1,7 +1,7 @@
 // ------- ALL -------- 
 
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(237, 237, 237);
     font-family: "Open-Sans", sans-serif;
 }
 
@@ -261,9 +261,16 @@ form {
 }
 
 .confirmation {
-    background-color: rgba(255, 255, 255, 0.804);
+    position: fixed;
+    top: 50vh;
+    background-color: rgb(255, 255, 255);
     padding: 10px;
+    border: solid 3px $primary-blue;
     border-radius: 10px;
+    width: 500px;
+    p, button {
+        margin: 1rem;
+    }
 }
 
 footer {

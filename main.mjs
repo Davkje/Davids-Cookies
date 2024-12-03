@@ -36,6 +36,8 @@ const currentRangeValue = document.querySelector('#currentRangeValue');
 
 // ---------------- Form Variables -----------------
 
+const form = document.querySelector('#purchaseForm');
+
 // - Inputs
 const nameInput = document.querySelector('#nameInput');
 const lastnameInput = document.querySelector('#lastnameInput');
@@ -53,9 +55,7 @@ const personalId = document.getElementById('personalID');
 
 // - Payment Opitions
 const paymentMethodRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
-
 const invoiceInput = document.querySelector('#invoiceInput');
-
 const invoiceOption = document.querySelector('#invoice');
 const cardOption = document.querySelector('#card');
 
@@ -67,15 +67,16 @@ const resetAllBtn = document.querySelector('#resetAllBtn');
 // - Order Button
 const orderBtn = document.querySelector('#purchaseBtn');
 
-
+//- Confirmation Section Pop Up
 const confirmationSection = document.querySelector('#confirmationSection');
-
+//- Confirmation Section Close Button
+const closeConfirmationBtn = document.querySelector('#closeConfirmationBtn');
 
 // ---------------- VARIABLES ---------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
 const today = new Date();
-const isFriday = today.getDay() === 6; // true or false, is it Fredag
+const isFriday = today.getDay() === 6; // true or false, is it Friday?
 const isMonday = today.getDay() === 1; 
 const currentHour = today.getHours();
 
@@ -100,7 +101,7 @@ sortByRatingBtn.addEventListener('click', sortByRating);
 priceRangeSlider.addEventListener('input', changePriceRange);
 
 // - Form Events
-// Add event listeners to all fields
+// Event listeners to all fields input, change or focus out
 [
     nameInput,
     lastnameInput,
@@ -129,6 +130,8 @@ paymentMethodRadios.forEach(radioBtn => {
 resetAllBtn.addEventListener('click', resetAllProducts);
 
 orderBtn.addEventListener('click', makePurchase);
+
+closeConfirmationBtn.addEventListener('click', closeConfirmation);
 
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -481,10 +484,11 @@ function activateOrderButton() {
     orderBtn.removeAttribute('disabled');
 }
 
-// --- Reset all Products and Form
+// --- Reset all Products  and form
 function resetAllProducts() {
-    console.log('Reset form and product amount')
+    console.log('Reset product amount')
     product.forEach(prod => prod.amount = 0);
+    form.reset();
     printProducts();
     printCartIconAmount();
 }
@@ -493,9 +497,12 @@ function resetAllProducts() {
 function makePurchase() {
     event.preventDefault();
     confirmationSection.classList.remove('hidden');
+    form.reset();
     resetAllProducts();
+}
 
-    // TODO! RESET FORM? / Change prevent default?
+function closeConfirmation() {
+    confirmationSection.classList.add('hidden');
 }
 
 // --- Message if To Slow
