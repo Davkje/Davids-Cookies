@@ -20,6 +20,8 @@ const emailRegEx = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 // - Header
 const cartIconAmountContainer = document.querySelector('#cartIconAmountContainer');
 
+const cartIcon = document.querySelector('#cartIcon');
+
 // - Containers
 const productsContainer = document.querySelector('#productsContainer');
 const cartContainer = document.querySelector('#cartContainer');
@@ -160,6 +162,14 @@ termsCheckbox.addEventListener('input', () => areTermsAccepted(termsCheckbox));
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
+function makeTextJump() {
+    cartIcon.classList.add('jump');
+
+    // Remove the class after a short delay to reset the position
+    setTimeout(() => {
+        cartIcon.classList.remove('jump');
+    }, 300); // Match the transition duration in CSS
+}
 
 // ---------------- MAKE NUMBER RATING INTO STARS
 function getRatingHtml(rating) {
@@ -202,6 +212,9 @@ function printCartIconAmount() {
     if (orderedProductAmount <= 0) {
         cartIconAmountContainer.classList.add('invisible');
     }
+
+    makeTextJump();
+
 }
 
 // ---------------- FILTER PRICE RANGE w.SLIDER
@@ -602,6 +615,7 @@ function slowCustomerMessage() {
     product.forEach(prod => prod.amount = 0);
     printProducts();
 }
+
 
 // --- Price Multiplier (For special prices) 
 function getPriceMultiplier() {

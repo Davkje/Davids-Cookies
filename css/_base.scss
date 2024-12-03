@@ -300,3 +300,8 @@ footer {
 .invisible {
     visibility: hidden;
 }
+
+.jump {
+    transform: translateY(10px);
+    transition: transform 0.5s cubic-bezier(0.2,-2,0.8,2);
+}

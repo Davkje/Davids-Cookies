@@ -19,7 +19,7 @@
         <header>
             <h1>Davids Cookies</h1>
             <div class="cart-container">
-                <span class="material-symbols-outlined cart-icon">shopping_bag</span>
+                <span id="cartIcon" class="material-symbols-outlined cart-icon">shopping_bag</span>
                 <div class="cart-amount-container" id="cartIconAmountContainer">
                     <!-- Fyll på genom script -->
                 </div>
@@ -78,7 +78,7 @@
                         <span>Name</span>
                         <p id="nameError" class="form-reminder">First name required</p>
                     </div>
-                    <input id="nameInput" type="text" name="name" placeholder="Name" required class="long-input">
+                    <input id="nameInput" type="text" name="name" placeholder="Name" value="David" required class="long-input">
                 </label>
                 <label>
                     <div>
@@ -120,14 +120,14 @@
                         <span>Phone</span>
                         <p id="phoneError" class="form-reminder">Required Ex: 555-0505000</p>
                     </div>
-                    <input id="phoneInput" type="tel" id="phone" name="phone" placeholder="555-0505000" required class="long-input">
+                    <input id="phoneInput" type="tel" id="phone" name="phone" placeholder="555-0505000" value="555-0505555" required class="long-input">
                 </label>
                 <label>
                     <div>
                         <span>Email</span>
                         <p id="emailError" class="form-reminder">Required Ex: mail@mail.com</p>
                     </div>
-                    <input id="emailInput" type="email" name="email" placeholder="mail@mail.com" value="" required class="long-input">
+                    <input id="emailInput" type="email" name="email" placeholder="mail@mail.com" value="mail@mail.com" required class="long-input">
                 </label>
                 <div class="payment-method">
                     <div class="selector">
