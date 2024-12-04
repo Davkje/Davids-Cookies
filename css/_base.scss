@@ -1,14 +1,14 @@
 // ------- ALL -------- 
 
 body {
-    background-color: rgb(237, 237, 237);
+    background-color: $white; 
     font-family: "Open-Sans", sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 10px;
     margin-top: 10px;
-    color: $primary-blue;
+    color: $blue;
 }
 
 img {
@@ -18,10 +18,45 @@ img {
     border-radius: 10px;
 }
 
+ //  ------- BUTTONS --------
+
+.btn {
+    background-color: $white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: $blue;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    max-width: 300px;
+    width: 100%;
+}
+
+.btn:hover {
+    background-color: $grey;
+}
+
+.btn:active {
+    background-color: $white;
+    transition: background-color 0s ease;
+}
+
+.btn:focus {
+    outline: 2px solid $blue;
+}
+
+.btn:disabled {
+    color: $trans-grey;
+}
+
+.radioBtn {
+    margin-top: 4px;
+}
+
 // ---- MAIN  PAGE
 
 header {
-    background-color: $primary-blue;
+    background-color: $blue;
     width: 100%;
     position: fixed;
     top: 0;
@@ -38,16 +73,16 @@ header {
         top: 3rem;
         right: 10px;
         margin: 10px;
-        background-color: rgb(255, 255, 255);
+        background-color: $white;
         height: 45px;
         width: 45px;
-        border: solid $primary-blue 3px;
+        border: solid $blue 3px;
         border-radius: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         .cart-icon {
-            color: $primary-blue;
+            color: $blue;
             font-size: 2rem;
         }
         .cart-amount-container {
@@ -57,14 +92,14 @@ header {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgb(255, 255, 255);
+            background-color: $white;
             border-radius: 100%;
-            border: solid $primary-blue 3px;
+            border: solid $blue 3px;
             height: 30px;
             width: 30px;
             text-align: center;
             .cart-amount {
-                color: $primary-blue;
+                color: $blue;
                 font-size: 1.2rem;
             }
         }
@@ -90,7 +125,7 @@ section {
 }
 
 .sorting-container {
-    background-color: rgba(0, 0, 0, 0.13);
+    background-color: $trans-grey;
     padding: 10px;
     border-radius: 10px;
     width: 90vw;
@@ -98,12 +133,13 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: $black;
     div {
         margin: 4px 0 4px 0;
         display: flex;
         .sorting-btn {
-            height: 30px;
-            width: 80px;
+            // height: 30px;
+            // width: 80px;
             margin: 0 10px 0 10px;
         }
         label {
@@ -116,16 +152,21 @@ section {
 }
 
 .product {
-    background-color: rgba(0, 0, 0, 0.053);
-    border: $primary-blue solid 3px;
+    border: $blue solid 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1rem;
     border-radius: 10px;
     margin-bottom: 2rem;
-    color: $primary-blue;
+    color: $blue;
     transition: background-color .5s;
+    img {
+        margin-bottom: 8px;
+    }
+    div {
+        font-size: 1.1rem;
+    }
     /* Firefox */
     input[type=number] {
         -moz-appearance: textfield;
@@ -145,7 +186,7 @@ section {
         border: none;
         border-radius: 10px;
         margin: 0 2px 0 2px;
-        color: $primary-blue
+        color: $blue
     }
     .amount-row {
         display: flex;
@@ -153,19 +194,19 @@ section {
         align-items: center;
         width: 100%;
         height: 42px;
-        border: $primary-blue solid 3px;
+        border: $blue solid 3px;
         border-radius: 13px;
         font-size: 20px;
-        color: $primary-blue;
+        color: $blue;
     }
 }
 
 .product:hover, .product:active {
-    background-color: rgba(255, 255, 255, 0.127);
+    background-color: rgb(255, 255, 255);
 }
 
 .cart-section {
-    background-color: rgba(0, 0, 0, 0.07);
+    background-color: $trans-grey;
     padding: 20px;
     border-radius: 10px;
     width: 600px;
@@ -177,7 +218,7 @@ section {
         .cart-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            border-bottom: solid rgba(0, 0, 0, 0.138) 2px;
+            border-bottom: solid $trans-grey 2px;
             margin-bottom: 1rem;
             .cart-row-item {
                 display: flex;
@@ -198,7 +239,7 @@ section {
 
 
 .checkout-section {
-    background-color: rgba(0, 0, 0, 0.07);
+    background-color: $trans-grey;
     padding: 20px;
     border-radius: 10px;
     width: 600px;
@@ -221,12 +262,15 @@ form {
     .long-input {
         width: 165px;
         height: 30px;
+        border: none;
+        border-radius: 4px;
+        padding: 4px;
     }
     .payment-method {
         grid-template-columns: repeat(4, 1fr);
         display: grid;
         grid-column: span 4;
-        background-color: rgba(0, 0, 0, 0.159);
+        background-color: $trans-grey;
         padding: 10px 20px 10px 20px ;
         border-radius: 10px;
         .selector {
@@ -243,6 +287,10 @@ form {
         }
         .small-input {
             width: 50px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            padding: 4px;
         }
     }
     .reset {
@@ -269,9 +317,9 @@ form {
 .confirmation {
     position: fixed;
     top: 50vh;
-    background-color: rgb(255, 255, 255);
+    background-color: $white;
     padding: 10px;
-    border: solid 3px $primary-blue;
+    border: solid 3px $blue;
     border-radius: 10px;
     width: 500px;
     p, button {
@@ -280,18 +328,13 @@ form {
 }
 
 footer {
-    background-color: $primary-blue;
+    background-color: $blue;
     margin-top: 1rem;
     height: 5rem;
     width: 100%;
 }
 
 // TEST & DEBUG
-
-.test {
-    background-color: red;
-    color: yellow;
-}
 
 .hidden {
     display: none;
@@ -303,5 +346,5 @@ footer {
 
 .jump {
     transform: translateY(10px);
-    transition: transform 0.5s cubic-bezier(0.2,-2,0.8,2);
+    transition: transform 0.5s cubic-bezier(0.3,-2,0.9,1.8);
 }
