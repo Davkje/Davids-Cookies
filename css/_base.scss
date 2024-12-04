@@ -18,11 +18,32 @@ img {
     border-radius: 10px;
 }
 
+// ------- INPUT --------
+
+input {
+    accent-color: $blue;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input:focus-visible {
+    outline: solid $blue 2px;
+    outline-style: auto;
+}
+
  //  ------- BUTTONS --------
 
 .btn {
     background-color: $white;
-    border: none;
+    border: solid $grey 2px;
     border-radius: 5px;
     padding: 5px 10px;
     color: $blue;
@@ -43,10 +64,15 @@ img {
 
 .btn:focus {
     outline: 2px solid $blue;
+    outline-style: auto;
 }
 
 .btn:disabled {
     color: $trans-grey;
+}
+
+.disabledBtn:hover {
+    background-color: $white;
 }
 
 .radioBtn {
@@ -167,16 +193,6 @@ section {
     div {
         font-size: 1.1rem;
     }
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
     div, input:hover {
         cursor: default;
     }
@@ -186,7 +202,11 @@ section {
         border: none;
         border-radius: 10px;
         margin: 0 2px 0 2px;
-        color: $blue
+        color: $blue;
+    }
+    .amount-btn:focus-visible {
+        outline: 2px solid $blue;
+        outline-style: auto;  
     }
     .amount-row {
         display: flex;
@@ -258,6 +278,10 @@ form {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 4px;
+    }
+    span {
+        margin: 4px 0 0 6px;
     }
     .long-input {
         width: 165px;
@@ -265,6 +289,7 @@ form {
         border: none;
         border-radius: 4px;
         padding: 4px;
+        align-self: flex-start;
     }
     .payment-method {
         grid-template-columns: repeat(4, 1fr);
@@ -273,9 +298,11 @@ form {
         background-color: $trans-grey;
         padding: 10px 20px 10px 20px ;
         border-radius: 10px;
+        align-items: center;
         .selector {
             grid-column: 2 / 4;
             display: flex;
+            gap: 1rem;
             label {
                 display: flex;
                 gap: 5px;
@@ -286,11 +313,12 @@ form {
             grid-column: span 4;
         }
         .small-input {
-            width: 50px;
+            width: 40px;
             height: 30px;
             border: none;
             border-radius: 4px;
             padding: 4px;
+            text-align: center;
         }
     }
     .reset {
@@ -308,6 +336,11 @@ form {
 
 .form-reminder {
     font-size: small;
+    color: $black;
+    background-color: $trans-grey;
+    padding: 2px 6px;
+    margin: 2px 0 12px 0;
+    border-radius: 5px;
 }
 
 .payment-input {
@@ -347,4 +380,5 @@ footer {
 .jump {
     transform: translateY(10px);
     transition: transform 0.5s cubic-bezier(0.3,-2,0.9,1.8);
+    // cubic-bezier(0.3,-2,0.9,1.8);
 }

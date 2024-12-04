@@ -111,9 +111,9 @@
                 <label>
                     <div>
                         <span>Door Code</span>
-                        <p class="form-reminder">Optional</p>
+                        <p class="form-reminde invisible">Door Code</p>
                     </div>
-                    <input type="number" name="doorcode" placeholder="1234" class="long-input">
+                    <input type="number" name="doorcode" placeholder="Optional" class="long-input">
                 </label>
                 <label>
                     <div>
@@ -172,8 +172,8 @@
                 </label>
                 <label>
                     <div>
-                        <span>Approval of processing of personal data</span>
-                        <p id="termsError" class="form-reminder">Required</p>
+                        <span>Accept our terms</span>
+                        <p id="termsError" class="form-reminder">Accept terms is required</p>
                     </div>
                     <input id="termsCheckbox" type="checkbox" name="checkterms" required>
                 </label>
@@ -182,13 +182,13 @@
                     <input type="checkbox" name="checknews" checked>
                 </label>
                 <input class="reset btn" id="resetAllBtn" type="reset" value="Reset">
-                <input class="submit btn" id="purchaseBtn" type="submit" value="Make Purchase" disabled>
+                <input class="submit btn disabledBtn" id="orderBtn" type="submit" value="Make Purchase" disabled>
             </form>
         </section>
 
         <section class="confirmation hidden" id="confirmationSection">
             <p>Thanks for your purchase!</p>
-            <button id="closeConfirmationBtn">Close</button>
+            <button class="btn" id="closeConfirmationBtn">Close</button>
         </section>
 
         <footer></footer>

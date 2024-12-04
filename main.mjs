@@ -79,7 +79,7 @@ let selectedPaymentOption = 'card';
 // - Reset Button
 const resetAllBtn = document.querySelector('#resetAllBtn');
 // - Order Button
-const orderBtn = document.querySelector('#purchaseBtn');
+const orderBtn = document.querySelector('#orderBtn');
 
 //- Confirmation Section Pop Up
 const confirmationSection = document.querySelector('#confirmationSection');
@@ -348,9 +348,9 @@ function printCartContainer() {
 
     // HTML CART
 
-    cartContainer.innerHTML += `${msg}`;
-
+    cartContainer.innerHTML += `${msg}`;    
     // SHIPPING - over 15 products is free, otherwise 25kr + 10%
+    let shippingCost = 0;
     if (orderedProductAmount > 15) {
         cartContainer.innerHTML += `
             <div class="cart-row">
@@ -359,13 +359,17 @@ function printCartContainer() {
             </div>
         `;
     } else {
+        shippingCost = Math.round(25 + (0.1 * sum));
         cartContainer.innerHTML += `
             <div class="cart-row">
                 <span class="cart-row-item">Shipping:</span>
-                <span class="cart-row-item span-last"> ${Math.round(25 + (0.1 * sum))} kr</span>
+                <span class="cart-row-item span-last"> ${shippingCost} kr</span>
             </div>
         `;
     }
+
+    // Sum include Shipping now
+    sum += shippingCost;
 
     cartContainer.innerHTML += `
         <div class="cart-row">
@@ -378,6 +382,10 @@ function printCartContainer() {
     if (invoiceInput) {
         invoiceInput.disabled = sum >= 800;
     }
+
+
+    console.log(shippingCost);
+
 }
 
 // --- INCREASE / DECREASE PRODUCT AMOUNT & UPDATES CART ICON AMOUNT
@@ -454,73 +462,73 @@ function switchPaymentMethod(e) {
 
 function isNameValid(name) {
     if (name.trim() === '') {
-        nameError.textContent = 'First name required';
+        nameError.classList.remove('invisible');
         return false;
     }
-    nameError.textContent = '';
+    nameError.classList.add('invisible');
     return true;
 }
 
 function isLastnameValid(lastname) {
     if (lastname.trim() === '') {
-        lastnameError.textContent = 'Last name required';
+        lastnameError.classList.remove('invisible');
         return false;
     }
-    lastnameError.textContent = '';
+    lastnameError.classList.add('invisible');
     return true;
 }
 
 function isAddressValid(address) {
     if (address.trim() === '') {
-        addressError.textContent = 'Address required';
+        addressError.classList.remove('invisible');
         return false;
     }
-    addressError.textContent = '';
+    addressError.classList.add('invisible');
     return true;
 }
 
 function isZipCodeValid(zipCode, zipCodeRegEx) {
     if (!zipCodeRegEx.test(zipCode)) {
-        zipCodeError.textContent = 'Required Ex: 12345';
+        zipCodeError.classList.remove('invisible');
         return false;
     }
-    zipCodeError.textContent = '';
+    zipCodeError.classList.add('invisible');
     return true;
 }
 
 function isTownValid(town) {
     if (town.trim() === '') {
-        townError.textContent = 'Town required';
+        townError.classList.remove('invisible');
         return false;
     }
-    townError.textContent = '';
+    townError.classList.add('invisible');
     return true;
 }
 
 function isPhoneValid(phone, phoneRegEx) {
     if (!phoneRegEx.test(phone)) {
-        phoneError.textContent = 'Required Ex: 555-0505000';
+        phoneError.classList.remove('invisible');
         return false;
     }
-    phoneError.textContent = '';
+    phoneError.classList.add('invisible');
     return true;
 }
 
 function isEmailValid(email, emailRegEx) {
     if (!emailRegEx.test(email)) {
-        emailError.textContent = 'Required Ex: mail@mail.com';
+        emailError.classList.remove('invisible');
         return false;
     }
-    emailError.textContent = ''; 
+    emailError.classList.add('invisible');
     return true;
 }
 
 function areTermsAccepted(termsCheckbox) {
     if (!termsCheckbox.checked) {
-        termsError.textContent = 'Required';
+        termsError.classList.remove('invisible');
         return false;
     }
-    termsError.textContent = '';
+    termsError.classList.add('invisible');
     return true;
 }
 
@@ -545,6 +553,7 @@ function isPersonalIdNumberValid() {
 // ---- ACTIVATE ORDER BUTTON
 function activateOrderButton() {
     orderBtn.setAttribute('disabled', 'true');
+    orderBtn.classList.add('disabledBtn');
 
     // Validated Form
     if (!isFormValid()) {
@@ -586,6 +595,7 @@ function activateOrderButton() {
     }
 
     orderBtn.removeAttribute('disabled');
+    orderBtn.classList.remove('disabledBtn');
 }
 
 // --- Reset all Products  and form
@@ -603,6 +613,8 @@ function makePurchase() {
     confirmationSection.classList.remove('hidden');
     form.reset();
     resetAllProducts();
+    orderBtn.setAttribute('disabled', 'true');
+    orderBtn.classList.add('disabledBtn');
 }
 
 function closeConfirmation() {
