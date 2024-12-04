@@ -103,6 +103,7 @@ let filteredProductInPriceRange = product;
 // ---------------- EVENT LISTENERS  --------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
+
 // - Product Events
 categoryFilterRadios.forEach(radio => {
     radio.addEventListener('input', updateCategoryFilter);

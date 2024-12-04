@@ -1,5 +1,13 @@
 // ------- ALL -------- 
 
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: $white; 
     font-family: "Open-Sans", sans-serif;
@@ -257,7 +265,6 @@ section {
     grid-column: span 3;
 }
 
-
 .checkout-section {
     background-color: $trans-grey;
     padding: 20px;
@@ -280,8 +287,10 @@ form {
         align-items: center;
         gap: 4px;
     }
-    span {
+    .form-title {
         margin: 4px 0 0 6px;
+        color: $blue;
+        font-weight: bold;
     }
     .long-input {
         width: 165px;
@@ -335,7 +344,7 @@ form {
 }
 
 .form-reminder {
-    font-size: small;
+    font-size: smaller;
     color: $black;
     background-color: $trans-grey;
     padding: 2px 6px;
