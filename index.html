@@ -11,13 +11,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <meta name="description"
+        content="Davids Cookies offers the best selection of sweet, salty, and vegan cookies. Shop now for delicious treats!">
+    <meta name="keywords" content="cookies, sweet cookies, salty cookies, vegan cookies, online cookie shop">
+    <meta property="og:title" content="Davids Cookies">
+    <meta property="og:description" content="Explore a world of sweet, salty, and vegan cookies. Order online today!">
 </head>
 
 <body>
     <main>
         <header>
-            <a href="#mainSection"><h1>Davids Cookies</h1></a>
+            <a href="#productsContainer">
+                <h1>Davids Cookies</h1>
+            </a>
             <a href="#cartSection">
                 <div class="cart-container">
                     <span id="cartIcon" class="material-symbols-outlined cart-icon">shopping_bag</span>
@@ -76,61 +83,66 @@
             <h2>Check Out</h2>
             <form id="purchaseForm">
                 <label>
-                    <div>
-                        <span class="form-title">Name</span>
-                        <p id="nameError" class="form-reminder">First name required</p>
-                    </div>
-                    <input id="nameInput" type="text" name="name" placeholder="Name" value="David" required class="long-input">
+                    <span class="form-title">Name</span>
+                    <input id="nameInput" type="text" name="name" placeholder="Name" required class="long-input">
                 </label>
+                <div class="reminder-con" id="nameError">
+                    <span class="form-reminder">First name required</span>
+                </div>
                 <label>
-                    <div>
-                        <span class="form-title">Lastname</span>
-                        <p id="lastnameError" class="form-reminder">Last name required</p>
-                    </div>
-                    <input id="lastnameInput" type="text" name="lastname" placeholder="Lastname" value="lastname" required class="long-input">
+                    <span class="form-title">Lastname</span>
+                    <input id="lastnameInput" type="text" name="lastname" placeholder="Lastname" required
+                        class="long-input">
                 </label>
+                <div class="reminder-con" id="lastnameError">
+                    <span class="form-reminder">Last name required</span>
+                </div>
                 <label>
-                    <div>
-                        <span class="form-title">Address</span>
-                        <p id="addressError" class="form-reminder">Address required</p>
-                    </div>
-                    <input id="addressInput" type="text" name="address" placeholder="Street 1B" value="street 1" required class="long-input">
+                    <span class="form-title">Address</span>
+                    <input id="addressInput" type="text" name="address" placeholder="Street 1B" required
+                        class="long-input">
                 </label>
+                <div class="reminder-con" id="addressError">
+                    <span class="form-reminder">Address required</span>
+                </div>
                 <label>
-                    <div>
-                        <span class="form-title">Zip Code</span>
-                        <p id="zipCodeError" class="form-reminder">Required Ex: 12345</p>
-                    </div>
-                    <input id="zipCodeInput" type="number" name="zipcode" placeholder="12345" value="12345" required class="long-input">
+                    <span class="form-title">Zip Code</span>
+                    <input id="zipCodeInput" type="number" name="zipcode" placeholder="12345" required
+                        class="long-input">
                 </label>
+                <div class="reminder-con" id="zipCodeError">
+                    <span class="form-reminder">Required Ex: 12345</span>
+                </div>
                 <label>
-                    <div>
-                        <span class="form-title">Town</span>
-                        <p id="townError" class="form-reminder">Town required</p>
-                    </div>
-                    <input id="townInput" type="text" name="town" placeholder="Town" value="Town" required class="long-input">
+                    <span class="form-title">Town</span>
+                    <input id="townInput" type="text" name="town" placeholder="Town" required class="long-input">
                 </label>
+                <div class="reminder-con" id="townError">
+                    <span class="form-reminder">Town required</span>
+                </div>
                 <label>
-                    <div>
-                        <span class="form-title">Door Code</span>
-                        <p class="form-reminde invisible">Door Code</p>
-                    </div>
+                    <span class="form-title">Door Code</span>
                     <input type="number" name="doorcode" placeholder="Optional" class="long-input">
                 </label>
+                <div class="reminder-con invisible">
+                    <span class="form-reminder">Town required</span>
+                </div>
                 <label>
-                    <div>
-                        <span class="form-title">Phone</span>
-                        <p id="phoneError" class="form-reminder">Required Ex: 555-0505000</p>
-                    </div>
-                    <input id="phoneInput" type="tel" id="phone" name="phone" placeholder="555-0505000" value="555-0505555" required class="long-input">
+                    <span class="form-title">Phone</span>
+                    <input id="phoneInput" type="tel" name="phone" placeholder="555-0505000" required
+                        class="long-input">
                 </label>
+                <div class="reminder-con" id="phoneError">
+                    <span class="form-reminder">Required Ex: 555-0505000</span>
+                </div>
                 <label>
-                    <div>
-                        <span class="form-title">Email</span>
-                        <p id="emailError" class="form-reminder">Required Ex: mail@mail.com</p>
-                    </div>
-                    <input id="emailInput" type="email" name="email" placeholder="mail@mail.com" value="mail@mail.com" required class="long-input">
+                    <span class="form-title">Email</span>
+                    <input id="emailInput" type="email" name="email" placeholder="mail@mail.com" required
+                        class="long-input">
                 </label>
+                <div class="reminder-con" id="emailError">
+                    <span class="form-reminder">Required Ex: mail@mail.com</span>
+                </div>
                 <div class="payment-method">
                     <div class="selector">
                         <label>
@@ -145,50 +157,54 @@
                     <div class="option invoice hidden" id="invoice">
                         <label class="payment-input">
                             <span>Swedish Personal ID</span>
-                            <input type="text" name="personal-id" id="personalID" value="19930721-5914"
-                                placeholder="19930721-5914" class="long-input">
+                            <input type="text" name="personal-id" id="personalID" placeholder="9307215914"
+                                class="long-input">
                         </label>
                     </div>
                     <div class="option card" id="card">
                         <label class="payment-input">
                             <span>Card Number</span>
-                            <input type="number" id="creditCardNumber" value="5100080000000000" class="long-input">
+                            <input type="number" id="creditCardNumber" placeholder="5114496353984312"
+                                class="long-input">
                         </label>
                         <label class="payment-input">
                             <span>Year / Month</span>
                             <span>
-                                <input type="number" class="small-input" placeholder="YY" id="creditCardYear" value="24">
+                                <input type="number" class="small-input" placeholder="YY" id="creditCardYear">
                                 /
-                                <input type="number" class="small-input" placeholder="MM" id="creditCardMonth" value="11">
+                                <input type="number" class="small-input" placeholder="MM" id="creditCardMonth">
                             </span>
                         </label>
                         <label class="payment-input">
                             <span>CVC</span>
-                            <input type="number" placeholder="123" id="creditCardCvc" value="259" class="long-input">
+                            <input type="number" placeholder="123" id="creditCardCvc" class="long-input">
                         </label>
                     </div>
                 </div>
-                <label>
+                <label class="discount-con">
                     <span class="form-title">Discount Code</span>
                     <input type="text" name="discountcode" id="discountcode" class="long-input">
                 </label>
                 <label>
-                    <div>
-                        <span class="form-title">Accept our terms</span>
-                        <p id="termsError" class="form-reminder">Accept terms is required</p>
-                    </div>
+                    <span class="form-title">Accept our terms</span>
                     <input id="termsCheckbox" type="checkbox" name="checkterms" required>
                 </label>
+                <div class="reminder-con" id="termsError">
+                    <span class="form-reminder">Accept terms is required</span>
+                </div>
                 <label>
-                        <span class="form-title">Apply for our newsletter</span>
+                    <span class="form-title">Apply for our newsletter</span>
                     <input type="checkbox" name="checknews" checked>
                 </label>
-                <input class="reset btn" id="resetAllBtn" type="reset" value="Reset">
+                <div class="button-row">
+                    <input class="reset btn" id="resetAllBtn" type="reset" value="Reset">
+                </div>
                 <input class="submit btn disabledBtn" id="orderBtn" type="submit" value="Make Purchase" disabled>
             </form>
         </section>
 
         <section class="confirmation hidden" id="confirmationSection">
+            <h3>Complete!</h3>
             <p>Thanks for your purchase!</p>
             <button class="btn" id="closeConfirmationBtn">Close</button>
         </section>

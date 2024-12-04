@@ -9,11 +9,16 @@ a {
 }
 
 body {
-    background-color: $white; 
+    background-color: $white;
     font-family: "Open-Sans", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin-bottom: 10px;
     margin-top: 10px;
     color: $blue;
@@ -31,10 +36,12 @@ img {
 input {
     accent-color: $blue;
 }
+
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -47,7 +54,7 @@ input:focus-visible {
     outline-style: auto;
 }
 
- //  ------- BUTTONS --------
+//  ------- BUTTONS --------
 
 .btn {
     background-color: $white;
@@ -98,10 +105,12 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+
     h1 {
         color: white;
         text-transform: uppercase;
     }
+
     .cart-container {
         position: fixed;
         top: 3rem;
@@ -115,10 +124,12 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
+
         .cart-icon {
             color: $blue;
             font-size: 2rem;
         }
+
         .cart-amount-container {
             position: fixed;
             right: 10px;
@@ -132,6 +143,7 @@ header {
             height: 30px;
             width: 30px;
             text-align: center;
+
             .cart-amount {
                 color: $blue;
                 font-size: 1.2rem;
@@ -168,14 +180,17 @@ section {
     flex-direction: column;
     align-items: center;
     color: $black;
+
     div {
         margin: 4px 0 4px 0;
         display: flex;
+
         .sorting-btn {
             // height: 30px;
             // width: 80px;
             margin: 0 10px 0 10px;
         }
+
         label {
             margin: 0 10px 0 10px;
             display: flex;
@@ -195,15 +210,20 @@ section {
     margin-bottom: 2rem;
     color: $blue;
     transition: background-color .5s;
+
     img {
         margin-bottom: 8px;
     }
+
     div {
         font-size: 1.1rem;
     }
-    div, input:hover {
+
+    div,
+    input:hover {
         cursor: default;
     }
+
     .amount-btn {
         width: 32px;
         height: 32px;
@@ -212,10 +232,12 @@ section {
         margin: 0 2px 0 2px;
         color: $blue;
     }
+
     .amount-btn:focus-visible {
         outline: 2px solid $blue;
-        outline-style: auto;  
+        outline-style: auto;
     }
+
     .amount-row {
         display: flex;
         justify-content: space-between;
@@ -229,7 +251,8 @@ section {
     }
 }
 
-.product:hover, .product:active {
+.product:hover,
+.product:active {
     background-color: rgb(255, 255, 255);
 }
 
@@ -239,15 +262,18 @@ section {
     border-radius: 10px;
     width: 600px;
     margin-bottom: 10px;
+
     .cart-container {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat (1, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+
         .cart-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             border-bottom: solid $trans-grey 2px;
             margin-bottom: 1rem;
+
             .cart-row-item {
                 display: flex;
                 justify-content: center;
@@ -275,52 +301,62 @@ section {
 form {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 10px;
+    grid-template-columns: repeat(12, 1fr);
     flex-direction: column;
+    gap: 2px;
     align-items: center;
+
     label {
         width: 100%;
-        grid-column: span 4;
+        grid-column: span 12;
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 4px;
     }
+
     .form-title {
-        margin: 4px 0 0 6px;
         color: $blue;
         font-weight: bold;
+        font-size: 1rem;
+        margin-left: 4px;
     }
+
     .long-input {
         width: 165px;
         height: 30px;
         border: none;
         border-radius: 4px;
         padding: 4px;
-        align-self: flex-start;
+        // align-self: flex-start;
     }
+
     .payment-method {
         grid-template-columns: repeat(4, 1fr);
         display: grid;
-        grid-column: span 4;
+        grid-column: span 12;
         background-color: $trans-grey;
-        padding: 10px 20px 10px 20px ;
+        padding: 10px 20px 10px 20px;
         border-radius: 10px;
         align-items: center;
+        margin: 8px 0;
+
         .selector {
             grid-column: 2 / 4;
             display: flex;
             gap: 1rem;
+
             label {
                 display: flex;
                 gap: 5px;
                 justify-content: center;
             }
         }
+
         .option {
             grid-column: span 4;
         }
+
         .small-input {
             width: 40px;
             height: 30px;
@@ -330,30 +366,47 @@ form {
             text-align: center;
         }
     }
-    .reset {
-        grid-column: span 4;
-        width: 100px;
-        margin: auto;
+
+    .button-row {
+        grid-column: span 12;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
     }
+
+    .reset {
+        width: 100px;
+    }
+
     .submit {
         margin: auto;
-        grid-column: span 4;
+        grid-column: span 12;
         width: 200px;
         height: 50px;
     }
 }
 
-.form-reminder {
-    font-size: smaller;
-    color: $black;
-    background-color: $trans-grey;
-    padding: 2px 6px;
-    margin: 2px 0 12px 0;
-    border-radius: 5px;
+.reminder-con {
+    grid-column: span 12;
+    display: flex;
+    margin-bottom: 8px;
+
+    .form-reminder {
+        font-size: smaller;
+        height: 100%;
+        background-color: $trans-grey;
+        color: $black;
+        padding: 2px 4px;
+        border-radius: 5px;
+    }
 }
 
 .payment-input {
     margin: 10px 0 10px 0;
+}
+
+.discount-con {
+    margin-bottom: 16px;
 }
 
 .confirmation {
@@ -364,7 +417,9 @@ form {
     border: solid 3px $blue;
     border-radius: 10px;
     width: 500px;
-    p, button {
+
+    p,
+    button {
         margin: 1rem;
     }
 }
@@ -388,6 +443,6 @@ footer {
 
 .jump {
     transform: translateY(10px);
-    transition: transform 0.5s cubic-bezier(0.3,-2,0.9,1.8);
+    transition: transform 0.5s cubic-bezier(0.3, -2, 0.9, 1.8);
     // cubic-bezier(0.3,-2,0.9,1.8);
 }

@@ -91,7 +91,7 @@ const closeConfirmationBtn = document.querySelector('#closeConfirmationBtn');
 
 const today = new Date();
 const isFriday = today.getDay() === 6; // true or false, is it Friday?
-const isMonday = today.getDay() === 1; 
+const isMonday = today.getDay() === 1;
 const currentHour = today.getHours();
 
 let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15); // Timer 15 min, if customer is to slow
@@ -129,7 +129,7 @@ priceRangeSlider.addEventListener('input', changePriceRange);
     creditCardNumber,
     creditCardYear,
     creditCardMonth,
-    creditCardCvc, 
+    creditCardCvc,
     personalId,
 ].forEach(input => {
     input.addEventListener('input', activateOrderButton);
@@ -238,6 +238,22 @@ function updateCategoryFilter(e) {
         filteredProduct = product.filter(prod => prod.category === selectedCategory);
     }
     changePriceRange();
+}
+
+// --- SORT PRODUCTS
+function sortByPrice() {
+    filteredProductInPriceRange.sort((prod1, prod2) => prod1.price - prod2.price);
+    printProducts();
+}
+
+function sortByRating() {
+    filteredProductInPriceRange.sort((prod1, prod2) => prod2.rating - prod1.rating);
+    printProducts();
+}
+
+function sortByName() {
+    filteredProductInPriceRange.sort((prod1, prod2) => prod1.name.localeCompare(prod2.name));
+    printProducts();
 }
 
 // ---------------- PRINT PRODUCTS IN HTML ----------------
@@ -349,7 +365,7 @@ function printCartContainer() {
 
     // HTML CART
 
-    cartContainer.innerHTML += `${msg}`;    
+    cartContainer.innerHTML += `${msg}`;
     // SHIPPING - over 15 products is free, otherwise 25kr + 10%
     let shippingCost = 0;
     if (orderedProductAmount > 15) {
@@ -431,22 +447,6 @@ function decreaseProductCount(e) {
     printCartIconAmount();
     // Focus on button AFTER print!
     document.querySelector(`#${clickedButtonId}`).focus();
-}
-
-// --- SORT PRODUCTS
-function sortByPrice() {
-    filteredProductInPriceRange.sort((prod1, prod2) => prod1.price - prod2.price);
-    printProducts();
-}
-
-function sortByRating() {
-    filteredProductInPriceRange.sort((prod1, prod2) => prod2.rating - prod1.rating);
-    printProducts();
-}
-
-function sortByName() {
-    filteredProductInPriceRange.sort((prod1, prod2) => prod1.name.localeCompare(prod2.name));
-    printProducts();
 }
 
 // ----- FORM FUNCTIONS -----
