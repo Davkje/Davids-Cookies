@@ -332,7 +332,7 @@ form {
     }
 
     .payment-method {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(12, 1fr);
         display: grid;
         grid-column: span 12;
         background-color: $trans-grey;
@@ -342,7 +342,7 @@ form {
         margin: 8px 0;
 
         .selector {
-            grid-column: 2 / 4;
+            grid-column: 5 / 9;
             display: flex;
             gap: 1rem;
 
@@ -354,7 +354,7 @@ form {
         }
 
         .option {
-            grid-column: span 4;
+            grid-column: span 12;
         }
 
         .small-input {
@@ -403,6 +403,15 @@ form {
 
 .payment-input {
     margin: 10px 0 10px 0;
+}
+
+.yymm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .labels-yymm {
+        display: flex;
+    }
 }
 
 .discount-con {

@@ -167,14 +167,17 @@
                             <input type="number" id="creditCardNumber" placeholder="5114496353984312"
                                 class="long-input">
                         </label>
-                        <label class="payment-input">
-                            <span>Year / Month</span>
-                            <span>
-                                <input type="number" class="small-input" placeholder="YY" id="creditCardYear">
+                        <div class="payment-input yymm">
+                            <div class="labels-yymm">
+                                <label for="creditCardYear">Year</label>
                                 /
+                                <label for="creditCardMonth">Month</label>
+                            </div>
+                            <div>
+                                <input type="number" class="small-input" placeholder="YY" id="creditCardYear">
                                 <input type="number" class="small-input" placeholder="MM" id="creditCardMonth">
-                            </span>
-                        </label>
+                            </div>
+                        </div>
                         <label class="payment-input">
                             <span>CVC</span>
                             <input type="number" placeholder="123" id="creditCardCvc" class="long-input">
