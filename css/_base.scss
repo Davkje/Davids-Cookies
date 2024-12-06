@@ -315,17 +315,11 @@ form {
         gap: 4px;
     }
 
-    .form-title {
-        color: $blue;
-        font-weight: bold;
-        font-size: 1rem;
-        margin-left: 4px;
-    }
 
     .long-input {
-        width: 165px;
+        max-width: 165px;
         height: 30px;
-        border: none;
+        border: solid $grey 2px;
         border-radius: 4px;
         padding: 4px;
         // align-self: flex-start;
@@ -342,7 +336,7 @@ form {
         margin: 8px 0;
 
         .selector {
-            grid-column: 5 / 9;
+            grid-column: 4 / 10;
             display: flex;
             gap: 1rem;
 
@@ -360,7 +354,7 @@ form {
         .small-input {
             width: 40px;
             height: 30px;
-            border: none;
+            border: solid $grey 2px;
             border-radius: 4px;
             padding: 4px;
             text-align: center;
@@ -386,10 +380,21 @@ form {
     }
 }
 
+h4 {
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 0;
+}
+
+h5 {
+    font-size: .9rem;
+}
+
 .reminder-con {
     grid-column: span 12;
     display: flex;
-    margin-bottom: 8px;
+    justify-content: flex-end;
+    margin: 2px 0 8px 0;
 
     .form-reminder {
         font-size: smaller;
@@ -411,6 +416,9 @@ form {
     align-items: center;
     .labels-yymm {
         display: flex;
+        color: $blue;
+        font-weight: bold;
+        font-size: 0.9rem;
     }
 }
 
