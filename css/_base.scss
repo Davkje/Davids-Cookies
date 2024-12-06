@@ -380,14 +380,11 @@ form {
     }
 }
 
-h4 {
+.form-title {
+    color: $blue;
     font-weight: bold;
     font-size: 1rem;
     margin: 0;
-}
-
-h5 {
-    font-size: .9rem;
 }
 
 .reminder-con {
@@ -416,9 +413,6 @@ h5 {
     align-items: center;
     .labels-yymm {
         display: flex;
-        color: $blue;
-        font-weight: bold;
-        font-size: 0.9rem;
     }
 }
 
