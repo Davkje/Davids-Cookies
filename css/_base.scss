@@ -83,7 +83,7 @@ input:focus-visible {
 }
 
 .btn:disabled {
-    color: $trans-grey;
+    color: rgb(183, 183, 183);
 }
 
 .disabledBtn:hover {
@@ -111,19 +111,34 @@ header {
         text-transform: uppercase;
     }
 
-    // Show cart Link Outline
-    .cart-link:focus {
-        outline: 2px solid #007bff; 
-  
+    .themeBtn {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        position: fixed;
+        right: 28px;
+        top: 15px;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        color: $white;
     }
 
-    .cart-container {
+    .themeBtn:hover {
+        color: $grey
+    }
+
+    // Show cart Link Outline
+    .cart-link:focus {
+        outline: 2px solid #007bff;
+    }
+
+    .cart-icon-container {
         position: fixed;
         top: 3rem;
         right: 10px;
         margin: 10px;
         background-color: $white;
-        height: 45px;
+        min-height: 45px;
         width: 45px;
         border: solid $blue 3px;
         border-radius: 100%;
@@ -192,8 +207,6 @@ section {
         display: flex;
 
         .sorting-btn {
-            // height: 30px;
-            // width: 80px;
             margin: 0 10px 0 10px;
         }
 
@@ -417,6 +430,7 @@ form {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .labels-yymm {
         display: flex;
     }
@@ -461,5 +475,72 @@ footer {
 .jump {
     transform: translateY(10px);
     transition: transform 0.5s cubic-bezier(0.3, -2, 0.9, 1.8);
-    // cubic-bezier(0.3,-2,0.9,1.8);
+}
+
+// DARK MODE
+
+body.dark {
+    background-color: $bluegrey;
+    color: $white;
+
+    header, footer {
+        background-color: $darkblue;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: $white;
+    }
+
+    .cart-icon-container {
+        background-color: $darkblue;
+        border: solid $white;
+        span {
+            color: $white;
+        }
+        .cart-amount-container {
+            background-color: $bluegrey;
+            border: solid $white;
+            .cart-amount {
+                color: $white;
+            }
+        }
+        
+    }
+
+    .sorting-container {
+        color: $white;
+    }
+
+    .product {
+        border: solid $white;
+        color: $white;
+        .amount-row {
+            border: solid $white;
+            color: $white;
+        }
+    }
+    .product:hover {
+        background-color: $trans-white;
+    }
+
+
+    .checkout-section, .sorting-container, .cart-section {
+        background-color: $trans-white;
+    }
+
+    .form-title {
+        color: $white;
+    }
+
+    .form-reminder {
+        color: $white;
+    }
+   
+    .confirmation {
+        background-color: $bluegrey;
+        border: solid $white;
+    }
 }

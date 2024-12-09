@@ -100,6 +100,13 @@ let slownessTimeout = setTimeout(slowCustomerMessage, 1000 * 60 * 15); // Timer 
 let filteredProduct = product;
 let filteredProductInPriceRange = product;
 
+
+const themeToggleBtn = document.querySelector('#themetoggle');
+let isCurrentThemeLight = false;
+
+themeToggleBtn.addEventListener('click', switchDarkLightTheme);
+
+
 // ---------------- EVENT LISTENERS  --------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
@@ -162,6 +169,19 @@ termsCheckbox.addEventListener('input', () => areTermsAccepted(termsCheckbox));
 
 // ---------------- ALL FUNCTIONS -----------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
+
+
+function switchDarkLightTheme() {
+    document.body.classList.toggle('dark');
+
+    if (isCurrentThemeLight) {
+        themeToggleBtn.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
+        isCurrentThemeLight = false;
+    } else {
+        themeToggleBtn.innerHTML = '<span class="material-symbols-outlined">light_mode</span>';
+        isCurrentThemeLight = true;
+    }
+}
 
 function makeTextJump() {
     cartIcon.classList.add('jump');
