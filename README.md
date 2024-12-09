@@ -24,7 +24,7 @@ https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-Davkje/
 
 ## Tech Stack
 
-**Languages:** JavaScript, Html, Css, Sass, 
+**Languages:** JavaScript, Html, Css, Sass 
 
 [![Stack](https://skillicons.dev/icons?i=js,html,css,sass)](https://skillicons.dev)
 
