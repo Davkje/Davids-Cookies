@@ -111,6 +111,12 @@ header {
         text-transform: uppercase;
     }
 
+    // Show cart Link Outline
+    .cart-link:focus {
+        outline: 2px solid #007bff; 
+  
+    }
+
     .cart-container {
         position: fixed;
         top: 3rem;

@@ -269,15 +269,15 @@ function printProducts() {
         productsContainer.innerHTML += `
             <article class="product">
                 <h3>${product.name}</h3>
-                <img src="${product.img.url}" alt="${product.img.alt}">
+                <img src="${product.img.url}" alt="${product.img.alt}" loading="lazy" width="${product.img.width}" height="${product.img.height}">
                 <div>Price: <span>${product.price * priceIncrease}<span> kr</div>
                 <div>Kategori: <span>${product.category}<span></div>
                 <div>Rating: ${getRatingHtml(product.rating)}</div>
                 <span>Add:</span>
                 <div class="amount-row">
-                    <button class="decrease amount-btn" id="decrease-${product.id}"> - </button>
+                    <button aria-label="Decrease" class="decrease amount-btn" id="decrease-${product.id}"> - </button>
                     <div><span id="input-${product.id}">${product.amount}</span></div>
-                    <button class="increase amount-btn" id="increase-${product.id}"> + </button>
+                    <button aria-label="Increase" class="increase amount-btn" id="increase-${product.id}"> + </button>
                 </div>
             </article>
         `;
@@ -629,7 +629,6 @@ function slowCustomerMessage() {
     printProducts();
 }
 
-
 // --- Price Multiplier (For special prices) 
 function getPriceMultiplier() {
     if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) {
@@ -638,7 +637,11 @@ function getPriceMultiplier() {
     return 1;
 }
 
-printCartIconAmount();
 
-// -- PRINT PAGE
-printProducts();
+// INITIALIZE
+function initApp() {
+    printCartIconAmount();
+    printProducts();
+}
+
+initApp();

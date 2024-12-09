@@ -66,7 +66,7 @@ const product = [
             url: 'assets/images/triple_choco_crumb.jpg',
             width: 1000,
             height: 1000,
-            alt: 'A wide brown cookie with a filling pouring out from the top'
+            alt: 'A wide brown cookie with chocolate a filling pouring out from the top'
         },
     },
     {
