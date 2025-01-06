@@ -14,10 +14,10 @@ The site is a small webshop selling cookies of all kinds. There are sorting func
 ## 🔗 Links
 
 #### Repo
-https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-Davkje
+https://github.com/Davkje/Davids-Cookies/
 
 #### Live Site
-https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-Davkje/
+https://davkje.github.io/Davids-Cookies/
 
 ![Preview](assets/designs/preview.png)
 
